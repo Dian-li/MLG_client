@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <!--<script src="js/index.js"></script>-->
+    <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../themes/icon.css">
+    <script src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+    <script src="../js/index.js"></script>
+</head>
+<style>
+    html,body{
+        height:100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+<body>
+<div class="easyui-layout" style="width:100%;height:100%;">
+    <div region="north" border="false" style="text-align:left;height:35px;line-height:35px;background:#E0ECFF">
+        <a>MLG</a>
+        <a class="easyui-linkbutton"  href="javascript:void(0)" onclick="openLogin()">登录</a>
+        <a class="easyui-linkbutton"  href="javascript:void(0)" onclick="opensign()">注册</a>
+    </div>
+    <div region="west" split="true" title="Navigator" style="width:200px;">
+        <div region="west" split="true" style="width:100%;" >
+            <ul class="easyui-tree">
+                <li>
+                    <span>Library</span>
+                    <ul>
+                        <li><span>easyui</span></li>
+                        <li><span>Music</span></li>
+                        <li><span>Picture</span></li>
+                        <li><span>Database</span></li>
+                    </ul>
+                </li>
+                <li>
+                    <span>New</span>
+                    <ul>
+                        <li><span>easyui</span></li>
+                        <li><span>Music</span></li>
+                        <li><span>Picture</span></li>
+                        <li><span>Database</span></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="sign" title="注册">
+        <form style="padding:10px 20px 10px 40px;">
+            <p>登录名: <input type="text" style="float:right"></p>
+            <p>密码: <input type="password" style="float:right"></p>
+            <p>确认密码: <input type="password" style="float:right"></p>
+            &nbsp;
+            <div style="padding:5px;text-align:center;">
+                <a href="#" class="easyui-linkbutton" icon="icon-ok">Ok</a>
+                <a href="#" class="easyui-linkbutton" icon="icon-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+    <div id="login" title="登录">
+        <form style="padding:10px 20px 10px 40px;">
+            <p>Username: <input type="text" style="float:right"></p>
+            <p>Password: <input type="password" style="float:right"></p>
+            &nbsp;
+            <div style="padding:5px;text-align:center;">
+                <a href="#" class="easyui-linkbutton" icon="icon-ok">Ok</a>
+                <a href="#" class="easyui-linkbutton" icon="icon-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+    <div id="menu1" style="width:150px;">
+        <div iconCls="icon-undo">Undo</div>
+        <div iconCls="icon-redo">Redo</div>
+        <div class="menu-sep"></div>
+        <div>Cut</div>
+        <div>Copy</div>
+        <div>Paste</div>
+        <div class="menu-sep"></div>
+        <div iconCls="icon-remove">Delete</div>
+        <div>Select All</div>
+    </div>
+    <div id="content" region="center" title="Language" style="padding:5px;">
+        <div class="easyui-tabs" fit="true">
+            <div title="Home" style="padding:10px;">
+                jQuery easyui framework help you build your web page easily.
+            </div>
+            <div title="Contacts">
+                No contact data.
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

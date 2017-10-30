@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加用户</title>
+    <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../themes/icon.css">
+   <script  src="../js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="../js/jQuery.easyui.js"></script>-->
+</head>
+<body>
+<div class="easyui-layout" style="width:300px;height:100%;">
+    <div region="center" border="false" style="padding:5px;width:300px;text-align:left;height:100px;line-height:35px;background:#E0ECFF">
+        <form id="ff" method="post">
+            <div>
+                <label for="l_name">登录名:</label>
+                <input class="easyui-validatebox" type="text" name="l_name" style="float:right" data-options="required:true" />
+            </div>
+            <div>
+                <label for="name">姓名:</label>
+                <input class="easyui-validatebox" type="text" name="name" style="float:right" data-options="required:true" />
+            </div>
+            <div>
+                <label for="role">角色:</label>
+                <select name="role" style="width: 175px;float:right">
+                    <option value="1">管理员</option>
+                    <option value="2">用户</option>
+                </select>
+            </div>
+            <div>
+                <label for="dept">部门:</label>
+                <input class="easyui-validatebox" style="float:right" type="text" name="dept"  />
+            </div>
+            <div>
+                <label for="post">职位:</label>
+                <input class="easyui-validatebox"  style="float:right" type="text" name="post" />
+            </div>
+            <div>
+                <label for="phone">电话:</label>
+                <input class="easyui-validatebox" type="text" style="float:right" name="phone" data-options="validType:'phone'" />
+            </div>
+            <div>
+                <label for="email">邮箱:</label>
+                <input class="easyui-validatebox" type="text"  style="float:right" name="email" data-options="validType:'email'" />
+            </div>
+            <div>
+                <label for="email">备注:</label>
+                <input class="easyui-validatebox" type="text" style="float:right" name="remark" data-options="validType:'email'" />
+            </div>
+
+            <div style="padding:5px;text-align:center;">
+                <a href="#" class="easyui-linkbutton" icon="icon-ok">Ok</a>
+                <a href="#" class="easyui-linkbutton" icon="icon-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

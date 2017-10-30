@@ -1,0 +1,72 @@
+
+<div class="easyui-layout" style="width:100%;height:100%;">
+    <div region="center" border="false" style="text-align:left;height:300px;width:300px;line-height:35px;background:#E0ECFF">
+
+        <form id="wu-form" method="post" style="height: 300px;width: 300px">
+            <table>
+                <tr>
+                   <td width="60" align="right">登录名:</td>
+                    <td><input id="l_name" class="easyui-validatebox" type="text" style="float:right" name="l_name" data-options="required:true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="60" align="right">密码:</td>
+                    <td><input id="password" class="easyui-validatebox" type="password" style="float:right" name="password" data-options="required:true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="60" align="right">重复密码:</td>
+                    <td><input id="repassword" class="easyui-validatebox" type="password" style="float:right" name="repassword" data-options="required:true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="60" align="right"><a href="#" class="easyui-linkbutton" icon="icon-ok" onclick="addUser()">Ok</a>
+                    </td>
+                    <td><a href="#" class="easyui-linkbutton" icon="icon-cancel" onclick="test()">Cancel</a>
+                    </td>
+                </tr>
+            </table>
+
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    function addUser(){
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:8080/MLG/userMana/addUser',
+            dataType:"json",
+            data:{l_name:$("#l_name").val(),password:$("#password").val()},
+            cache : false,
+            async: true,
+            error:function(){alert('系统连接失败，请稍后再试！')},
+            success: function(obj){
+                if(obj.errCode==0){
+                    alert("成功!");
+                }else{
+                    alert(obj.errText.toString());
+                }
+
+            }
+        });
+    }
+    function test() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/MLG/scriptsMana/queryScript',
+            dataType:"json",
+            data:{l_name:$("#l_name").val(),password:$("#password").val()},
+            cache : false,
+            async: true,
+            error:function(){alert('系统连接失败，请稍后再试！')},
+            success: function(obj){
+                if(obj.errCode==0){
+                    alert("成功!");
+                }else{
+                    alert(obj.errText.toString());
+                }
+
+            }
+        });
+    }
+</script>

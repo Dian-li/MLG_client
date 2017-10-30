@@ -1,0 +1,60 @@
+
+<div class="easyui-layout" style="width:100%;height:100%;">
+    <div region="center" border="false" style="text-align:left;height:300px;width:300px;line-height:35px;background:#E0ECFF">
+
+        <div id="tb" style="padding:3px">
+            <span>Item ID:</span>
+            <input id="itemid" style="line-height:26px;border:1px solid #ccc">
+            <span>Product ID:</span>
+            <input id="productid" style="line-height:26px;border:1px solid #ccc">
+            <a href="#" class="easyui-linkbutton" plain="true" onclick="getUser()">Search</a>
+        </div>
+        <!--<div id="divDatagrid"></div>-->
+        <table id="tt" class="easyui-datagrid" style="width:600px;height:250px"
+               title="Load Data" iconCls="icon-save"
+                pagination="true">
+
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+        function getUser(){
+        //$('#divDatagrid').html('<table id="totalTb"></table>');//动态创建表
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/MLG/userMana/listUser',
+            dataType:"json",
+            data:{S_INDEX:"0",MAX_NUM:"10"},
+            cache : false,
+            async: true,
+            error:function(){alert('系统连接失败，请稍后再试！')},
+            success: function(obj){
+                if(obj.RET_INFO.errCode==0){
+                    //alert(obj.COLUMNS[0]);
+                    var colData1 = [];
+                    var columns = new Array();
+                    for(var i=0;i<obj.COLUMNS.length;i++){
+                        colData1[i] = {'field':obj.COLUMNS[i],'title':obj.COLUMNS[i],'colspan':2,'align':'center','width':70};
+                    }
+                    columns.push(colData1);
+
+                    $('#tt').datagrid({
+                        method:"get",
+                        fitColumns: true,
+                        rownumbers:true,
+                        singleSelect:true,
+                        loadMsg:'数据加载中......',
+                        columns:columns
+                });
+                    $('#tt').datagrid('loadData',{total:obj.USER.length,rows:obj.USER});
+                    $('#tt').datagrid('reload');
+                        //datagrid('reload', obj.USER);
+                }else{
+                    alert(obj.errText.toString());
+                }
+
+            }
+        });
+    }
+
+</script>

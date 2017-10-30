@@ -1,0 +1,135 @@
+<div class="easyui-layout" style="width:100%;height:100%;">
+    <div id="content" region="center" style="padding:5px; width: 300px;height: 300px;">
+
+        <div id="tb" style="padding:3px">
+            <!--<span>脚本名称:</span>-->
+            <!--<input id="SCRIPTNAME" style="line-height:26px;border:1px solid #ccc">-->
+            <!--<span>日期:</span>-->
+            <!--<input id="SCRIPTDATE" style="line-height:26px;border:1px solid #ccc">-->
+            <!--<label>类型:</label>-->
+            <!--<select name="role" style="width: 175px;float:right">-->
+                <!--<option value="original">原始脚本</option>-->
+                <!--<option value="test">测试脚本</option>-->
+            <!--</select>-->
+
+        </div>
+        <div class="wu-toolbar-button">
+            <a> 协议:</a>
+            <select id="selectProtocol"  class="easyui-combobox" style="width: 200px">
+                <option value="socket">Socket</option>
+                <option value="http">HTTP</option>
+                <option value="ftp">FTP</option>
+                <option value="db">数据库</option>
+                <option value="mixture">混合协议</option>
+            </select>
+        </div>
+        <div class="wu-toolbar-button">
+            <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="getScripts()">Search</a>
+            <a id="downloadscript" href="#" class="easyui-linkbutton" iconCls="icon-download" onclick="downloadFiles()" plain="true">下载</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="editScript()" plain="true">打开</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="deleteScript()" plain="true">删除</a>
+        </div>
+        <table id="tt" class="easyui-datagrid" style="width:600px;height:250px"
+               title="Load Data" iconCls="icon-save"
+               pagination="true">
+
+        </table>
+
+    </div>
+</div>
+
+
+    <script type="text/javascript">
+        var scriptname = "";
+        var columns ;
+        var rowIndex ;
+
+        $('#tt').datagrid({
+            method:"get",
+            fitColumns: true,
+            rownumbers:true,
+            singleSelect:true,
+            loadMsg:'数据加载中......',
+            columns:[[
+                {'field':'SCRIPTNAME','title':'脚本名称','colspan':1,'align':'center','width':100},
+                {'field':'SCRIPTDATE','title':'日期','colspan':1,'align':'center','width':100},
+                {'field':'PROTOCOL','title':'协议','colspan':1,'align':'center','width':100},
+                {'field':'REMARK','title':'备注','colspan':1,'align':'center','width':100}
+            ]],
+            enableHeaderClickMenu : true,//此属性开启表头列名称右侧那个箭头形状的鼠标左键点击菜单
+            enableHeaderContextMenu : true,//此属性开启表头列名称右键点击菜单
+            onClickRow:function(){    //单击进行操作的方法
+                var row = $('#tt').datagrid('getSelected');//获取选中行的数据
+                rowIndex = $('#tt').datagrid('getRowIndex', row);
+                if (!row){
+                    return;//为防止意外情况可以选择加上此判断
+                }
+                scriptname= row.SCRIPTNAME;//获取选中行的id
+                //alert(scriptname+filepath);
+                //alert('SCRIPTNAME:'+row.SCRIPTNAME+"Price:"+row.FILEPATH);
+
+            }
+        });
+        function getScripts(){
+            //$('#divDatagrid').html('<table id="totalTb"></table>');//动态创建表
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:8080/MLG/scriptsMana/listScripts',
+                dataType:"json",
+                data:{S_INDEX:"0",MAX_NUM:"10",PROTOCOL:$('#selectProtocol').combobox('getValue'),STYPE:'notmodules'},
+                cache : false,
+                async: true,
+                error:function(){alert('系统连接失败，请稍后再试！')},
+                success: function(obj){
+                    if(obj.RET_INFO.errCode==0){
+                        //alert(obj.COLUMNS[0]);
+
+                        var length = 0;
+                        if(obj.SCRIPTS!=null){
+                            length = obj.SCRIPTS.length;
+                        }
+                        $('#tt').datagrid('loadData',{total:length,rows:obj.SCRIPTS});
+                        $('#tt').datagrid('reload');
+                        //datagrid('reload', obj.USER);
+                    }else{
+                        alert(obj.errText.toString());
+                    }
+
+                }
+            });
+
+        }
+        function getRowTXT(){
+            return scriptname;
+        }
+
+        function editScript(){
+            addTab(scriptname,"html/editscript.html","icon-edit",0);
+        }
+
+        function deleteScript(){
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:8080/MLG/scriptsMana/deleteScripts',
+                dataType:"json",
+                data:{SCRIPTNAME:scriptname},
+                cache : false,
+                async: true,
+                error:function(){alert('系统连接失败，请稍后再试！')},
+                success: function(obj){
+                    if(obj.errCode==0){
+                        $('#tt').datagrid('deleteRow', rowIndex);
+                        $('#tt').datagrid('reload');//删除后重新加载下
+                    }
+                }
+            });
+
+        }
+
+        function downloadFiles(){
+            $('#downloadscript').attr("href","http://localhost:8080/MLG/scriptsMana/downloadscript?SCRIPTNAME="+scriptname);
+        }
+
+
+
+    </script>

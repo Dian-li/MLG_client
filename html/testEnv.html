@@ -1,0 +1,82 @@
+<div class="easyui-layout" style="width:500px;height:100%;">
+    <div region="center" border="false" style="padding:5px;width:500px;text-align:left;height:100px;line-height:35px;background:#E0ECFF">
+        <form id="ff" method="post">
+            <div>
+                <label>测试类型:</label>
+                <select name="role" style="width: 175px;float:right">
+                    <option value="1">Socket</option>
+                    <option value="2">HTTP</option>
+                    <option value="3">FTP</option>
+                    <option value="4">数据库</option>
+                </select>
+            </div>
+            <div>
+                <label>TestPerSecond:</label>
+                <input class="easyui-validatebox" type="text" name="l_name" style="float:right" data-options="required:true" />
+            </div>
+            <div>
+                <label>最大并发量:</label>
+                <input class="easyui-validatebox" type="text" name="name" style="float:right" data-options="required:true" />
+            </div>
+            <div>
+                <label>执行模块:</label>
+                <select id="modules" name="role" style="width: 200px;">
+                    <option value="1">执行模块1:10.100.28.4:7654;空闲</option>
+                    <option value="2">执行模块2：10.100.28.4:6234；空闲</option>
+                    <option value="3">执行模块3：10.100.28.4:6222；空闲</option>
+                    <option value="4">执行模块4：10.100.31.3:6234；空闲</option>
+                    <option value="5">执行模块5：10.100.31.3:6234；忙</option>
+                    <option value="6">执行模块6：10.100.31.7:6234；忙</option>
+                    <option value="7">执行模块7：10.100.32.34:6234；忙</option>
+                    <option value="8">执行模块8：10.100.32.34:6234；忙</option>
+                </select>
+                <a href="#" class="easyui-linkbutton" icon="icon-ok">添加</a>
+            </div>
+            <div>
+
+            </div>
+
+
+            <div>
+                <table id="tt4" class="easyui-datagrid" style="width:600px;height:250px"
+                       title="执行模块列表" iconCls="icon-save">
+
+                </table>
+            </div>
+            <div>
+                <label>备注:</label>
+                <textarea id="remark" style="width:500px;height: 100px"></textarea>
+            </div>
+
+
+            <div style="padding:5px;text-align:center;">
+                <a href="#" class="easyui-linkbutton" icon="icon-ok" onclick="setDataCollect()">设置测试参数</a>
+                <a href="#" class="easyui-linkbutton" icon="icon-cancel">取消</a>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $('#tt4').datagrid({
+        method:"get",
+        fitColumns: true,
+        rownumbers:true,
+        singleSelect:true,
+        enableHeaderClickMenu : true,//此属性开启表头列名称右侧那个箭头形状的鼠标左键点击菜单
+        enableHeaderContextMenu : true,//此属性开启表头列名称右键点击菜单
+        onClickRow:function(){    //单击进行操作的方法
+            var row = $('#tt2').datagrid('getSelected');//获取选中行的数据
+            rowIndex = $('#tt2').datagrid('getRowIndex', row);
+            if (!row){
+                return;//为防止意外情况可以选择加上此判断
+            }
+            paramfilename= row.FILENAME;//获取选中行的id
+            paramfilepath = row.FILEPATH;
+        }
+    });
+    $('#tt4').datagrid('reload');
+
+    function setDataCollect() {
+        addTab($('#modules option:selected').val(),"html/dataCollect.html","icon-server-start",0);
+    }
+</script>

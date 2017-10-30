@@ -1,0 +1,64 @@
+<div class="easyui-layout" style="width:100%;height:100%;">
+    <div id="content" region="center" style="padding:5px; width: 300px;height: 300px;">
+        <form id="modules-form" style="height: 100%;width: 100%">
+
+            <div class="wu-toolbar-button">
+                <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="seetest()" plain="true">查看测试</a>
+                <!--<a href="#" class="easyui-linkbutton" iconCls="icon-bullet-stop-alt" onclick="deleteModule()" plain="true">停止测试</a>-->
+            </div>
+            <table id="nowTasks" class="easyui-datagrid" style="width:100%;height:auto"
+                   title="Load Data" iconCls="icon-save"
+                   pagination="true">
+            </table>
+            <!--<div style="padding:5px;text-align:center;">-->
+            <!--<a href="#" class="easyui-linkbutton" icon="icon-ok" onclick="addModules()">新增测试节点</a>-->
+            <!--<a href="#" class="easyui-linkbutton" icon="icon-cancel" onclick="cancel()">取消</a>-->
+            <!--</div>-->
+        </form>
+    </div>
+</div>
+
+<script>
+    var testcasename = "";
+    $('#nowTasks').datagrid({
+        fitColumns: true,
+        rownumbers:true,
+        singleSelect:true,
+        columns:[[{field:'NAME',title:'测试用例名称',width:100},
+            {field:'PROTOCOL',title:'协议',width:100},
+            {field:'DATE',title:'更新时间',width:100}
+            ]],
+        enableHeaderClickMenu : true,//此属性开启表头列名称右侧那个箭头形状的鼠标左键点击菜单
+        enableHeaderContextMenu : true,//此属性开启表头列名称右键点击菜单
+        onClickRow:function(){    //单击进行操作的方法
+            var row = $('#nowTasks').datagrid('getSelected');//获取选中行的数据
+            rowIndex = $('#nowTasks').datagrid('getRowIndex', row);
+            if (!row){
+                return;//为防止意外情况可以选择加上此判断
+            }
+            testcasename = row.NAME;
+
+        }
+    });
+
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8080/MLG/testcaseMana/listTestcase',
+        dataType: "json",
+        data: {S_INDEX:"0",MAX_NUM:"10",STATUS: "Running"},
+        cache: false,
+        async: true,
+        error: function () {
+            alert('系统连接失败，请稍后再试！')
+        },
+        success: function (obj) {
+            if (obj.RET_INFO.errCode == 0) {
+                $('#nowTasks').datagrid('loadData',{total:obj.TESTCASES.length,rows:obj.TESTCASES});
+                $('#nowTasks').datagrid('reload');
+            }
+        }
+    });
+    function seetest() {
+        addTab(testcasename,"html/continueTest.html","icon-server-start",0);
+    }
+</script>

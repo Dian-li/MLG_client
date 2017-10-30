@@ -1,0 +1,762 @@
+<div class="easyui-layout" style="width:100%;height:100%;" xmlns:width="http://www.w3.org/1999/xhtml">
+    <div id="content" region="center" style="padding:5px; width: 100%;height: 100%;">
+        <div class="wu-toolbar-button">
+            <a href="#" class="easyui-linkbutton" iconCls="icon-bullet-start" onclick="startTest()" plain="true">开始测试</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-pause-blue" onclick="showTime()" plain="true">暂停测试</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-bullet-stop-alt" onclick="stopTest()" plain="true">停止测试</a>
+        </div>
+        <table class="table table-celled table-structured">
+            <thead>
+            <tr>
+                <th colspan="4" style="text-align: center; background-color: #F5F5F5">测试相关信息</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td  align="center" width="25%"><label>测试用例名称:</label><label id="testcasename2"   style="width: 200px"></label>
+                </td>
+                <td align="center" width="25%"><label>测试协议类型：</label><label id="protocol"   style="width: 200px" >HTTP</label>
+                </td>
+                <td align="center" width="25%"><label>备注:</label><label id="remark2"  style="width: 200px" ></label>
+                </td>
+                <!--<td  align="center" width="25%"><label>被测服务器地址:</label><label id="address"  style="width: 200px" >10.100.24.2:8080</label>-->
+                <!--</td>-->
+                <td  align="center" width="25%"><label>脚本文件名称:</label><label id="testfile2"   style="width: 200px"  ></label>
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td align="center" width="25%"><label>参数文件名称：</label><label id="paramfile2"   style="width: 200px" ></label>
+                </td>
+                <td align="center" width="25%"><label>并发模式:</label><label id="mode2"  style="width: 200px" ></label>
+                </td>
+                <td  align="center" width="25%"><label>时延阈值（MS）:</label><label id="timedelay2"  style="width: 200px" ></label>
+                </td>
+                <td  align="center" width="25%"><label>成功率阈值（%）:</label><label id="successThreshold2"   style="width: 200px"  ></label>
+                </td>
+
+
+            </tr>
+
+            <tr>
+                <td align="center" width="25%"><label>压力模型：</label><label id="pressureMode2"   style="width: 200px" ></label>
+                </td>
+
+                <td align="center" width="25%"><label>调节间隔(S)</label><label id="timeInterval2"  style="width: 200px" ></label>
+                </td>
+                <td  align="center" width="25%"><label>变化步长(S):</label><label id="step2"  style="width: 200px" ></label>
+                </td>
+                <td  align="center" width="25%"><label>初始压力（TPS）:</label><label id="initPressure2"  style="width: 200px" ></label>
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td  align="center" width="25%"><label>并发用户:</label><label id="virtualUser"   style="width: 200px"  ></label>
+                </td>
+                <td  align="center" width="25%"><label>测试时长(S):</label><label id="testTime2"   style="width: 200px"  ></label>
+                </td>
+
+                <td align="center" width="25%"><label>目标压力(TPS)：</label><label id="targetPressure2"   style="width: 200px" ></label>
+                </td>
+                <td></td>
+
+
+                <!--<td align="center" width="25%"><label>线程连接池大小:</label><label id="threadPoolsize"  style="width: 200px" ></label>-->
+                <!--</td>-->
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div id="chart-tps" style="height:300px;width:100%"></div>
+                </td>
+                <td colspan="2">
+                    <div id="chart-indicator" style="height:300px;width:100%"></div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div id="chart-cpu" style="height:300px;width:100%"></div>
+                </td>
+                <td colspan="2">
+                    <div id="chart-IO" style="height:300px;width:100%"></div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div id="chart-net" style="height:300px;width:100%"></div>
+                </td>
+                <td colspan="2">
+                    <div id="chart-mem" style="height:300px;width:100%"></div>
+                </td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+<!--<script src="../echarts-2.2.7/doc/asset/js/bootstrap.min.js"></script>-->
+<script>
+    var testConf = getTestConf();
+    //document.getElementById('testcasename').innerText(testConf[0]) ;
+    //document.getElementById('remark').innerText(testConf[1]) ;
+    $('#testcasename2').html(testConf[0]);
+    $('#protocol').html(testConf[1]);
+    $('#remark2').html(testConf[2]);
+    $('#testfile2').html(testConf[3]);
+    $('#paramfile2').html(testConf[4]);
+    $('#mode2').html(testConf[5]);
+    $('#timedelay2').html(testConf[6]);
+    $('#successThreshold2').html(testConf[7]);
+    $('#pressureMode2').html(testConf[8]);
+    $('#initPressure2').html(testConf[9]);
+    $('#virtualUser').html(testConf[10]);
+    $('#timeInterval2').html(testConf[11]);
+    $('#step2').html(testConf[12]);
+    $('#testTime2').html(testConf[13]);
+    $('#targetPressure2').html(testConf[14]);
+
+
+    var timeTicket;
+    // 路径配置
+    require.config({
+        paths: {
+            echarts: '../echarts-2.2.7/build/dist'
+        }
+    });
+    // 使用
+    require(//TPS
+        [
+            'echarts',
+            'echarts/chart/line',
+            'echarts/chart/bar'
+        ],
+        function (ec) {
+            drawEcharts(ec);
+        }
+
+    );
+
+    function drawEcharts(ec){
+        drawTPS(ec);
+        drawIndicator(ec);
+        drawCPU(ec);
+        drawIO(ec);
+        drawNET(ec);
+        drawMEM(ec);
+    }
+    var myChart;
+    var myCpuChart;
+    var myIndicatorChart;
+    var myIOChart;
+    var myNetChart;
+    var myMemChart;
+
+    function drawTPS(ec) {
+        // 基于准备好的dom，初始化echarts图表
+        myChart = ec.init(document.getElementById('chart-tps'));
+        var option = {
+            title:{
+                text:'TPS'
+            },
+            tooltip: {
+                show: true,
+                trigger: 'axis'
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    dataView : {show: true, readOnly: false},
+                    magicType : {show: true, type: ['line', 'bar']},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            legend: {
+                data:['TPS']
+            },
+            dataZoom : {
+                show : false,
+                start : 0,
+                end : 100
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : true,
+                    data : (function (){
+                        //var now = new Date();
+                        var res = [];
+                        res.unshift(showTime());
+                        return res;
+                    })()
+               }
+            ],
+            yAxis : [
+
+                {
+                    type : 'value',
+                    scale: true,
+                    name : 'TPS',
+                    boundaryGap: [0.2, 0.2]
+                }
+
+            ],
+            series : [
+                {
+                    name:'TPS',
+                    type:'line',
+                    data:(function (){
+                        var res = [];
+                        var len = 10;
+                        res.push(0);
+                        return res;
+                    })()
+                }
+            ]
+        };
+        // 为echarts对象加载数据
+        myChart.setOption(option,true);
+    }
+
+    function drawIndicator(ec) {
+        // 基于准备好的dom，初始化echarts图表
+        myIndicatorChart =  ec.init(document.getElementById('chart-indicator'));
+
+        var option = {
+            title:{
+                text:'指标'
+            },
+            tooltip: {
+                show: true,
+                trigger: 'axis'
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    dataView : {show: true, readOnly: false},
+                    magicType : {show: true, type: ['line', 'bar']},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            legend: {
+                data:['avg_delay']
+            },
+            dataZoom : {
+                show : false,
+                start : 0,
+                end : 100
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : true,
+                    data : (function (){
+                        var now = new Date();
+                        var res = [];
+                        res.unshift(showTime());
+                        return res;
+                    })()
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    scale: true,
+                    name : '平均时延(s)',
+                    boundaryGap: [0.2, 0.2]
+                }
+            ],
+            series : [
+                {
+                    name:'delay',
+                    type:'line',
+                    data:(function (){
+                        var res = [];
+                        var len = 10;
+                        res.push(0);
+                        return res;
+                    })()
+                }
+            ]
+        };
+        myIndicatorChart.setOption(option,true);
+
+    }
+
+        function drawCPU(ec) {
+            // 基于准备好的dom，初始化echarts图表
+            myCpuChart =  ec.init(document.getElementById('chart-cpu'));
+
+            var option = {
+                title:{
+                    text:'CPU'
+                },
+                tooltip: {
+                    show: true,
+                    trigger: 'axis'
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                legend: {
+                    data:['CPU']
+                },
+                dataZoom : {
+                    show : false,
+                    start : 0,
+                    end : 100
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : true,
+                        data : (function (){
+                            var now = new Date();
+                            var res = [];
+                            res.unshift(showTime());
+                            return res;
+                        })()
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        scale: true,
+                        name : 'CPU利用率(%)',
+                        boundaryGap: [0.2, 0.2]
+                    }
+                ],
+                series : [
+                    {
+                        name:'CPU',
+                        type:'line',
+                        data:(function (){
+                            var res = [];
+                            var len = 10;
+                            res.push(0);
+                            return res;
+                        })()
+                    }
+                ]
+            };
+            myCpuChart.setOption(option,true);
+
+        }
+
+        function drawIO(ec) {
+            // 基于准备好的dom，初始化echarts图表
+            myIOChart =  ec.init(document.getElementById('chart-IO'));
+
+            var option = {
+                title:{
+                    text:'磁盘IO'
+                },
+                tooltip: {
+                    show: true,
+                    trigger: 'axis'
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                legend: {
+                    data:['读','写']
+                },
+                dataZoom : {
+                    show : false,
+                    start : 0,
+                    end : 100
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : true,
+                        data : (function (){
+                            //var now = new Date();
+                            var res = [];
+                            res.unshift(showTime());
+                            return res;
+                        })()
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        scale: true,
+                        name : '磁盘IO速率(kb/s)',
+                        boundaryGap: [0.2, 0.2]
+                    }
+                ],
+                series : [
+                    {
+                        name:'读',
+                        type:'line',
+                        data:(function (){
+                            var res = [];
+                            var len = 10;
+                            res.push(0);
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'写',
+                        type:'line',
+                        data:(function (){
+                            var res = [];
+                            var len = 10;
+                            res.push(0);
+                            return res;
+                        })()
+                    }
+                ]
+            };
+            myIOChart.setOption(option,true);
+
+        }
+
+        function drawNET(ec) {
+            // 基于准备好的dom，初始化echarts图表
+            myNetChart =  ec.init(document.getElementById('chart-net'));
+
+
+            var option = {
+                title:{
+                    text:'网络利用率'
+                },
+                tooltip: {
+                    show: true,
+                    trigger: 'axis'
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                legend: {
+                    data:['发送','接收']
+                },
+                dataZoom : {
+                    show : false,
+                    start : 0,
+                    end : 100
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : true,
+                        data : (function (){
+                            //var now = new Date();
+                            var res = [];
+                            res.unshift(showTime());
+
+                            return res;
+                        })()
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        scale: true,
+                        name : '网络利用率(bps)',
+                        boundaryGap: [0.2, 0.2]
+                    }
+                ],
+                series : [
+                    {
+                        name:'发送',
+                        type:'line',
+                        data:(function (){
+                            var res = [];
+                            var len = 10;
+                            res.push(0);
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'接收',
+                        type:'line',
+                        data:(function (){
+                            var res = [];
+                            var len = 10;
+                            res.push(0);
+                            return res;
+                        })()
+                    }
+                ]
+            };
+            myNetChart.setOption(option,true);
+
+        }
+
+        function drawMEM(ec) {
+            // 基于准备好的dom，初始化echarts图表
+            myMemChart =  ec.init(document.getElementById('chart-mem'));
+            var option = {
+                title:{
+                    text:'内存'
+                },
+                tooltip: {
+                    show: true
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                legend: {
+                    data:['物理内存','虚拟内存']
+                },
+                dataZoom : {
+                    show : false,
+                    start : 0,
+                    end : 100
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : true,
+                        data : (function (){
+                            var now = new Date();
+                            var res = [];
+                            res.unshift(showTime());
+                            now = new Date(now - 2000);
+                            return res;
+                        })()
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        scale: true,
+                        name : '内存使用率(%)',
+                        boundaryGap: [0.2, 0.2]
+                    }
+                ],
+                series : [
+                    {
+                        name:'物理内存',
+                        type:'line',
+                        data:(function (){
+                            var res = [];
+                            var len = 10;
+                            res.push(0);
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'虚拟内存',
+                        type:'line',
+                        data:(function (){
+                            var res = [];
+                            res.push(0);
+                            return res;
+                        })()
+                    }
+                ]
+            };
+            myMemChart.setOption(option,true);
+
+        }
+
+    function startTest() {
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:8080/MLG/test/testBegin',
+            dataType: "json",
+            data:{TESTCASENAME:$('#testcasename2').text()},
+            cache: false,
+            async: true,
+            error: function () {
+                alert('系统连接失败，请稍后再试！')
+            },
+            success: function (obj) {
+                if (obj.errCode == 0) {
+                    startDataCollection();
+                }
+            }
+        });
+    }
+
+    function stopTest() {
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:8080/MLG/test/testEnd',
+            dataType: "json",
+            data:{TESTCASENAME:$('#testcasename2').text()},
+            cache: false,
+            async: true,
+            error: function () {
+                alert('系统连接失败，请稍后再试！')
+            },
+            success: function (obj) {
+                if (obj.errCode == 0) {
+                    stopDataCollection();
+                }
+            }
+        });
+    }
+
+
+    function startDataCollection() {
+        var lastData = 11;
+        var axisData;
+        var cpuTime,ioTime,memTime,netTime;
+        var cpu=0,recv=0,send=0,mem=0,vmem=0,read=0,write=0,avg_delay=0;
+        clearInterval(timeTicket);
+        timeTicket = setInterval(function (){
+
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:8080/MLG/test/dataCollection',
+                dataType:"json",
+                data:{TESTCASENAME:$('#testcasename2').text()},
+                cache : false,
+                async: true,
+                error:function(){alert('系统连接失败，请稍后再试！')},
+                success: function(obj){
+                    if(obj.RET_INFO.errCode==0){
+                        cpuTime = obj.CPU.TIME;
+                        cpu = parseFloat(obj.CPU.CPU);
+                        myCpuChart.addData([
+                            [
+                                0,        // 系列索引
+                                cpu, // 新增数据
+                                false,    // 新增数据是否从队列头部插入
+                                true,    // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
+                                cpuTime  // 坐标轴标签
+                            ]
+                        ]);
+
+                        ioTime = obj.IO.TIME;
+                        read= parseFloat(obj.IO.READ);
+                        write = parseFloat(obj.IO.WRITE);
+                        myIOChart.addData([
+                            [
+                                0,        // 系列索引
+                                read, // 新增数据
+                                false,    // 新增数据是否从队列头部插入
+                                true,    // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
+                                ioTime  // 坐标轴标签
+                            ],
+                            [
+                                1,        // 系列索引
+                                write, // 新增数据
+                                false,    // 新增数据是否从队列头部插入
+                                true,    // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
+                                ioTime  // 坐标轴标签
+                            ]
+                        ]);
+
+                        memTime = obj.MEM.TIME;
+                        mem = parseFloat(obj.MEM.MEM);
+                        vmem = parseFloat(obj.MEM.VMEM);
+                        myMemChart.addData([
+                            [
+                                0,        // 系列索引
+                                mem, // 新增数据
+                                false,    // 新增数据是否从队列头部插入
+                                true,    // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
+                                memTime  // 坐标轴标签
+                            ],
+                            [
+                                1,        // 系列索引
+                                vmem, // 新增数据
+                                false,    // 新增数据是否从队列头部插入
+                                true,    // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
+                                memTime  // 坐标轴标签
+                            ]
+                        ]);
+
+                        netTime = obj.NET.TIME;
+                        recv = parseFloat(obj.NET.RECV);
+                        send = parseFloat(obj.NET.SEND);
+                        myNetChart.addData([
+                            [
+                                0,        // 系列索引
+                                send, // 新增数据
+                                false,    // 新增数据是否从队列头部插入
+                                true,    // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
+                                netTime  // 坐标轴标签
+                            ],
+                            [
+                                1,        // 系列索引
+                                recv, // 新增数据
+                                false,    // 新增数据是否从队列头部插入
+                                true,    // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
+                                netTime  // 坐标轴标签
+                            ]
+                        ]);
+                        avg_delay = parseFloat(obj.INDICATOR.avg_delay);
+
+                        var delayTime = showTime();
+                        console.log(avg_delay+","+delayTime);
+                        myIndicatorChart.addData([
+                            [
+                                0,        // 系列索引
+                                avg_delay, // 新增数据
+                                false,    // 新增数据是否从队列头部插入
+                                true,    // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
+                                delayTime // 坐标轴标签
+                            ]
+                        ]);
+
+                    }
+                }});
+
+            lastData = +1000*Math.random() * ((Math.round(Math.random() * 10) % 2) == 0 ? 1 : -1);
+            if(lastData<0) lastData=500;
+            lastData = lastData.toFixed(1) - 0;
+            axisData = (showTime());
+            // 动态数据接口 addData
+            myChart.addData([
+                [
+                    0,        // 系列索引
+                    lastData, // 新增数据
+                    false,    // 新增数据是否从队列头部插入
+                    true,    // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
+                    axisData  // 坐标轴标签
+                ]
+            ]);
+
+        }, 2000);
+    }
+
+    function stopDataCollection() {
+        clearInterval(timeTicket);
+    }
+
+    function showTime() {
+
+        var myDate=new Date();
+        var date = myDate.getFullYear() + "-" + sup(myDate.getMonth()) + "-" + sup(myDate.getDate());
+        var time = sup(myDate.getHours()) + ":" + sup(myDate.getMinutes()) + ":" + sup(myDate.getSeconds());
+       // alert(date + " " + time);
+        function sup ( n ) { return (n<10) ? '0'+n : n; }
+        return time;
+    }
+
+</script>

@@ -1,0 +1,125 @@
+<div class="easyui-layout" style="width:100%;height:100%;">
+    <div id="content" region="center" style="padding:5px; width: 300px;height: 300px;">
+
+        <div id="tb" style="padding:3px">
+            <!--<span>脚本名称:</span>-->
+            <!--<input id="SCRIPTNAME" style="line-height:26px;border:1px solid #ccc">-->
+            <!--<span>日期:</span>-->
+            <!--<input id="SCRIPTDATE" style="line-height:26px;border:1px solid #ccc">-->
+            <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="getTestcase()">Search</a>
+        </div>
+        <div class="wu-toolbar-button">
+            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="editTestcase()" plain="true">编辑</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="deleteTestcase()" plain="true">删除</a>
+            <!--<a href="#" class="easyui-linkbutton" iconCls="icon-server-start " onclick="test2()" plain="true">测试</a>-->
+        </div>
+        <table id="tt3" class="easyui-datagrid" style="width:800px;height:250px"
+               title="Load Data" iconCls="icon-save"
+               pagination="true">
+
+        </table>
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var paramname = "";
+    var parampath = "";
+    var testcasename = "";
+    var scriptname = "";
+    var remark = "";
+    var columns ;
+    var rowIndex ;
+
+    $('#tt3').datagrid({
+        method:"get",
+        fitColumns: true,
+        rownumbers:true,
+        singleSelect:true,
+        loadMsg:'数据加载中......',
+        columns:[[
+            {'field':'NAME','title':'测试用例名称','colspan':1,'align':'center','width':100},
+            {'field':'DATE','title':'日期','colspan':1,'align':'center','width':100},
+            {'field':'REMARK','title':'备注','colspan':1,'align':'center','width':100},
+            {'field':'SCRIPTNAME','title':'脚本名称','colspan':1,'align':'center','width':100},
+            {'field':'PARAMFILENAME','title':'参数文件名称','colspan':1,'align':'center','width':100}
+        ]],
+        enableHeaderClickMenu : true,//此属性开启表头列名称右侧那个箭头形状的鼠标左键点击菜单
+        enableHeaderContextMenu : true,//此属性开启表头列名称右键点击菜单
+        onClickRow:function(){    //单击进行操作的方法
+            var row = $('#tt3').datagrid('getSelected');//获取选中行的数据
+            rowIndex = $('#tt3').datagrid('getRowIndex', row);
+            if (!row){
+                return;//为防止意外情况可以选择加上此判断
+            }
+            paramname= row.PARAMFILENAME;//获取选中行的id
+            testcasename = row.NAME;
+            scriptname = row.SCRIPTNAME;
+            remark = row.REMARK;
+        }
+    });
+    function getTestMessage(){
+        return [testcasename,scriptname,paramname,remark];
+    }
+    function getTestcase(){
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/MLG/testcaseMana/listTestcase',
+            dataType:"json",
+            data:{S_INDEX:"0",MAX_NUM:"10"},
+            cache : false,
+            async: true,
+            error:function(){alert('系统连接失败，请稍后再试！')},
+            success: function(obj){
+                if(obj.RET_INFO.errCode==0){
+                    $('#tt3').datagrid('loadData',{total:obj.TESTCASES.length,rows:obj.TESTCASES});
+                    $('#tt3').datagrid('reload');
+                }else{
+                    alert(obj.errText.toString());
+                }
+
+            }
+        });
+
+    }
+    function getParamRowTXT(){
+        return [paramfilename,paramfilepath];
+    }
+
+    function editTestcase(){
+        //updateTab(testcasename,'html/addTestcase.html');
+        addTab(testcasename,"html/addTestcase.html","icon-edit",0);
+    }
+
+    function editParamFiles(){
+        addTab(paramfilename,"html/editParamFile.html","icon-edit",0);
+    }
+
+    function deleteTestcase(){
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:8080/MLG/testcaseMana/deleteTestcase',
+            dataType:"json",
+            data:{TESTCASENAME:testcasename},
+            cache : false,
+            async: true,
+            error:function(){alert('系统连接失败，请稍后再试！')},
+            success: function(obj){
+                if(obj.errCode==0){
+                    $('#tt3').datagrid('deleteRow', rowIndex);
+                    $('#tt3').datagrid('reload');//删除后重新加载下
+                }
+            }
+        });
+
+        getParamFiles();
+        $('#tt3').datagrid('reload');
+    }
+
+    function test2() {
+        addTab(testcasename,"html/test.html","icon-server-start",0);
+    }
+
+
+</script>

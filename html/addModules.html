@@ -1,0 +1,89 @@
+
+<div class="easyui-layout" style="width:100%;height:100%;">
+    <div id="content" region="center" style="padding:5px; width: 200px;height: 300px;">
+        <form id="modulesform" method="post" enctype="multipart/form-data">
+            <table class="table table-celled table-structured">
+
+                <tr>
+                    <td width="100px" style="text-align: center">测试脚本类型：</td>
+                    <td><select id="scriptType" name="SCRIPTTYPE" class="easyui-combobox" style="width: 200px">
+                        <option value="original">原始脚本</option>
+                        <option value="test">测试脚本</option>
+                    </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100px" style="text-align: center">测试协议类型：</td>
+                    <td><select id="scriptProtocol" name="SCRIPTPROTOCOL" class="easyui-combobox" style="width: 200px">
+                        <!--<option value="socket" selected>Socket</option>-->
+                        <!--<option value="http" selected>HTTP</option>-->
+                        <!--<option value="ftp" selected>FTP</option>-->
+                        <!--<option value="db" selected>数据库</option>-->
+                        <!--<option value="mixture" selected>混合协议</option>-->
+                    </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td width="100px" style="text-align: center">上传脚本模板文件：</td>
+                    <td>
+                        <input class="easyui-filebox" id="modulesfile"  name="file" style="width: 300px"/>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td width="100px" style="text-align: center">备注:</td>
+                    <td width="100px" align="left"><input id="remark" class="easyui-textbox" type="text" style="float:right;width: 200px" name="REMARK"  />
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div style="padding:5px;text-align:center;">
+            <a  class="easyui-linkbutton" id="uploadscript" iconCls="icon-upload" onclick="addScript()">上传</a>
+        </div>
+        <!--<input id="fileupload" type="file" name="file" data-url="http://localhost:8080/MLG/scriptsMana/uploadTestScripts" multiple>-->
+    </div>
+</div>
+
+<script type="text/javascript">
+
+        $("#scriptType").combobox({
+            onChange:function(record){
+                var  type = $('#scriptType').combobox('getValue');
+                var protocolArray = [];
+                if(type=='original'){
+                    protocolArray.push({ "text": "SOCKET", "id": "socket" ,"value":"socket"});
+                    protocolArray.push({ "text": "HTTP", "id": "http" ,"value":"http"});
+                }else{
+                    protocolArray.push({ "text": "SOCKET", "id": "socket" ,"value":"socket"});
+                    protocolArray.push({ "text": "HTTP", "id": "http" ,"value":"http"});
+                    protocolArray.push({ "text": "FTP", "id": "ftp" ,"value":"ftp"});
+                    protocolArray.push({ "text": "数据库", "id": "db" ,"value":"db"});
+                    protocolArray.push({ "text": "混合协议", "id": "mixture" ,"value":"mixture"});
+                }
+                $('#scriptProtocol').combobox('loadData',protocolArray);
+            }
+        });
+
+
+    function addScript(){
+
+        $('#modulesform').form({
+            url:'http://localhost:8080/MLG/scriptsMana/uploadModuleScripts',
+            //data:$('#scriptform').serialize(),
+            cache : false,
+            async: true,
+            contentType:'application/x-www-form-urlencoded',
+            onSubmit:function () {
+                // alert("success");
+            },
+            success:function (data) {
+                alert("success"+data);
+
+            }
+        });
+        $('#modulesform').submit();
+    }
+
+</script>
