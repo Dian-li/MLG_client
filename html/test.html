@@ -15,7 +15,7 @@
             <tr>
                 <td  align="center" width="25%"><label>测试用例名称:</label><label id="testcasename2"   style="width: 200px"></label>
                 </td>
-                <td align="center" width="25%"><label>测试协议类型：</label><label id="protocol"   style="width: 200px" >HTTP</label>
+                <td align="center" width="25%"><label>测试协议类型：</label><label id="protocol"   style="width: 200px"></label>
                 </td>
                 <td align="center" width="25%"><label>备注:</label><label id="remark2"  style="width: 200px" ></label>
                 </td>
@@ -68,33 +68,49 @@
                 <!--<td align="center" width="25%"><label>线程连接池大小:</label><label id="threadPoolsize"  style="width: 200px" ></label>-->
                 <!--</td>-->
             </tr>
+            </tbody>
+        </table>
+        <table id="nodesfortest" class="easyui-datagrid" style="width:100%;height:auto">
+            <thead>
             <tr>
-                <td colspan="2">
+                <th colspan="4" style="text-align: center; background-color: #F5F5F5">测试节点</th>
+            </tr>
+            </thead>
+        </table>
+        <table class="table table-celled table-structured">
+            <thead>
+            <tr>
+                <th colspan="4" style="text-align: center; background-color: #F5F5F5">测试实时统计</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td colspan="2" width="50%">
                     <div id="chart-tps" style="height:300px;width:100%"></div>
                 </td>
-                <td colspan="2">
+                <td colspan="2" width="50%">
                     <div id="chart-indicator" style="height:300px;width:100%"></div>
                 </td>
             </tr>
             <tr>
-                <td colspan="2">
+                <td colspan="2" width="50%">
                     <div id="chart-cpu" style="height:300px;width:100%"></div>
                 </td>
-                <td colspan="2">
+                <td colspan="2" width="50%">
                     <div id="chart-IO" style="height:300px;width:100%"></div>
                 </td>
             </tr>
             <tr>
-                <td colspan="2">
+                <td colspan="2" width="50%">
                     <div id="chart-net" style="height:300px;width:100%"></div>
                 </td>
-                <td colspan="2">
+                <td colspan="2" width="50%">
                     <div id="chart-mem" style="height:300px;width:100%"></div>
                 </td>
             </tr>
             </tbody>
-
         </table>
+
     </div>
 
 </div>
@@ -119,7 +135,15 @@
     $('#testTime2').html(testConf[13]);
     $('#targetPressure2').html(testConf[14]);
 
-
+    var testnodes = new Array();
+    testnodes = getIpList();
+    $('#nodesfortest').datagrid({
+        fitColumns: true,
+        rownumbers:true,
+        singleSelect:true,
+        columns:[[{field:'ip',title:'主机地址',width:100},{field:'power',title:'负载比例(%)',width:100}]],
+        data:testnodes
+    });
     var timeTicket;
     // 路径配置
     require.config({
@@ -244,7 +268,7 @@
                 }
             },
             legend: {
-                data:['avg_delay']
+                data:['平均时延','最大时延','最小时延']
             },
             dataZoom : {
                 show : false,
@@ -267,13 +291,33 @@
                 {
                     type : 'value',
                     scale: true,
-                    name : '平均时延(s)',
+                    name : '时延(s)',
                     boundaryGap: [0.2, 0.2]
                 }
             ],
             series : [
                 {
-                    name:'delay',
+                    name:'平均时延',
+                    type:'line',
+                    data:(function (){
+                        var res = [];
+                        var len = 10;
+                        res.push(0);
+                        return res;
+                    })()
+                },
+                {
+                    name:'最大时延',
+                    type:'line',
+                    data:(function (){
+                        var res = [];
+                        var len = 10;
+                        res.push(0);
+                        return res;
+                    })()
+                },
+                {
+                    name:'最小时延',
                     type:'line',
                     data:(function (){
                         var res = [];
@@ -583,11 +627,17 @@
         }
 
     function startTest() {
+        iplist = new Array();
+        ratiolist = new Array();
+        for(var i=0;i<testnodes.length;i++){
+            iplist.push(testnodes[i].ip);
+            ratiolist.push(testnodes[i].power);
+        }
         $.ajax({
             type: 'POST',
             url: 'http://localhost:8080/MLG/test/testBegin',
             dataType: "json",
-            data:{TESTCASENAME:$('#testcasename2').text()},
+            data:{TESTCASENAME:$('#testcasename2').text(),TPS:$('#initPressure2').text(),DURATION:$('#testTime2').text(),IP:iplist,RATIO:ratiolist},
             cache: false,
             async: true,
             error: function () {
@@ -625,7 +675,7 @@
         var lastData = 11;
         var axisData;
         var cpuTime,ioTime,memTime,netTime;
-        var cpu=0,recv=0,send=0,mem=0,vmem=0,read=0,write=0,avg_delay=0;
+        var cpu=0,recv=0,send=0,mem=0,vmem=0,read=0,write=0,avg_delay=0,max_delay=0,min_delay=0;
         clearInterval(timeTicket);
         timeTicket = setInterval(function (){
 
@@ -711,6 +761,8 @@
                             ]
                         ]);
                         avg_delay = parseFloat(obj.INDICATOR.avg_delay);
+                        max_delay = parseFloat(obj.INDICATOR.max_delay);
+                        min_delay = parseFloat(obj.INDICATOR.min_delay);
 
                         var delayTime = showTime();
                         console.log(avg_delay+","+delayTime);
@@ -721,21 +773,35 @@
                                 false,    // 新增数据是否从队列头部插入
                                 true,    // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
                                 delayTime // 坐标轴标签
+                            ],
+                            [
+                                1,        // 系列索引
+                                max_delay, // 新增数据
+                                false,    // 新增数据是否从队列头部插入
+                                true,    // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
+                                delayTime // 坐标轴标签
+                            ],
+                            [
+                                2,        // 系列索引
+                                min_delay, // 新增数据
+                                false,    // 新增数据是否从队列头部插入
+                                true,    // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
+                                delayTime // 坐标轴标签
                             ]
                         ]);
 
                     }
                 }});
 
-            lastData = +1000*Math.random() * ((Math.round(Math.random() * 10) % 2) == 0 ? 1 : -1);
-            if(lastData<0) lastData=500;
-            lastData = lastData.toFixed(1) - 0;
+            //lastData = +1000*Math.random() * ((Math.round(Math.random() * 10) % 2) == 0 ? 1 : -1);
+            //if(lastData<0) lastData=500;
+            //lastData = lastData.toFixed(1) - 0;
             axisData = (showTime());
             // 动态数据接口 addData
             myChart.addData([
                 [
                     0,        // 系列索引
-                    lastData, // 新增数据
+                    $('#initPressure2').text(), // 新增数据
                     false,    // 新增数据是否从队列头部插入
                     true,    // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
                     axisData  // 坐标轴标签

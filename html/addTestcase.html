@@ -367,8 +367,6 @@ $('#testlist').combobox({
         });
     }});
 
-
-
     $('#testnode').datagrid({
         fitColumns: true,
         rownumbers:true,
@@ -406,8 +404,6 @@ $('#testlist').combobox({
         $('#win2').window('close');
     }
 
-
-
     function openNodes() {
         $.ajax({
             type: 'GET',
@@ -440,18 +436,6 @@ $('#testlist').combobox({
             }
         });
     }
-
-
-//var testMessage = getTestMessage();
-//if(testMessage.length!=0){
-//    $('#testcasename').val(testMessage[0]);
-//    $('#remark').val(testMessage[1]);
-//    $('#testlist').combobox('setValue',testMessage[2]);
-//    $('#paramlist').combobox('setValue',testMessage[3]);
-//
-//
-//}
-
 
         function selectMyscript() {
             document.getElementById("testlist").length = 0;
@@ -515,11 +499,22 @@ $('#testlist').combobox({
             });
 
         }
+        var ipList = undefined;
+        function getNodeIp(){
+            ipList = new Array();
+            var rows = $('#testnode').datagrid("getRows");
+            var object = {};
+            for(var i=0;i<rows.length;i++){
+                object.ip = rows[i].ip;
+                object.power = rows[i].power;
+                //alert(object.ip+" "+object.power);
+                ipList.push(object);
+            }
+            return ipList;
+        }
 
         function addTestcase() {
-
             //alert(t_testcasename+t_remark+t_testlist);
-
             $('#testcase-form').form({
                 url: 'http://localhost:8080/MLG/testcaseMana/addTestcase',
                 dataType: "json",
@@ -527,7 +522,8 @@ $('#testlist').combobox({
                 async: true,
                 contentType: 'application/x-www-form-urlencoded',
                 onSubmit: function () {
-                    alert("success");
+                    getNodeIp();
+                    //alert("success");
                 }
             });
             $('#testcase-form').submit();
@@ -537,41 +533,31 @@ $('#testlist').combobox({
             return [t_testcasename,t_protocol, t_remark, t_testlist, t_paramlist, t_concurrentMode, t_timedelay, t_success, t_pressureMode, t_initPressure,t_virtualUser, t_timeInterval, t_step, t_testTime, t_targetPressure];
         }
 
+        function getIpList() {
+            return ipList;
+        }
+
         function saveCoookies() {
             t_testcasename = $('#testcasename').val();
             t_protocol = $('#protocol').combobox('getValue');
-            //$.cookie("t_testcasename",t_testcasename,{ expires: 1, path: '/' });
             t_remark = $('#remark').val();
-            //$.cookie("t_remark",t_remark,{ expires: 1, path: '/' });
             t_testlist = $('#testlist').combobox('getText');
-            //$.cookie("t_testlist",t_testlist,{ expires: 1, path: '/' });
             t_paramlist = $('#paramlist').combobox('getText');
-            //$.cookie("t_paramlist",t_paramlist,{ expires: 1, path: '/' });
             t_concurrentMode = $('#concurrentMode option:selected').text();
-            //$.cookie("t_concurrentMode",t_concurrentMode,{ expires: 1, path: '/' });
             t_timedelay = $('#timedelay').val();
-            //$.cookie("timedelay",timedelay,{ expires: 1, path: '/' });
             t_success = $('#success').val();
-            // $.cookie("success",success,{ expires: 1, path: '/' });
             t_pressureMode = $('#pressureMode option:selected').text();
-            //$.cookie("t_pressureMode",t_pressureMode,{ expires: 1, path: '/' });
             t_initPressure = $('#initPressure').val();
             t_virtualUser = $('#virtualUsers').val();
-            //$.cookie("t_initPressure",t_initPressure,{ expires: 1, path: '/' });
             t_timeInterval = $('#timeInterval').val();
-            //$.cookie("t_timeInterval",t_timeInterval,{ expires: 1, path: '/' });
             t_step = $('#step').val();
-            //$.cookie("step",step,{ expires: 1, path: '/' });
             t_testTime = $('#testTime').val();
-            //$.cookie("t_testTime",t_testTime,{ expires: 1, path: '/' });
             t_targetPressure = $('#targetPressure').val();
-            //$.cookie("t_targetPressure",t_targetPressure,{ expires: 1, path: '/' });
         }
 
         function test() {
-
             saveCoookies();
-
+            getNodeIp();
             addTab($('#testcasename').val(), "html/test.html", "icon-server-start", 0);
             //updateTab($('#testcasename').val(),"")
         }
