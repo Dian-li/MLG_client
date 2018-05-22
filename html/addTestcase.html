@@ -558,7 +558,13 @@ $('#testlist').combobox({
         function test() {
             saveCoookies();
             getNodeIp();
-            addTab($('#testcasename').val(), "html/test.html", "icon-server-start", 0);
+            var href = "html/test.html" +
+                    "?testcasename="+$('#testcasename').val()+
+                    "?protocol="+$('#protocol').combobox('getValue')+
+                    "?remark="+$('#remark').val()+
+                    "?testlist="+$('#testlist').combobox('getText')+
+                    "?paramlist="+$('#paramlist').combobox('getText');
+            addTab($('#testcasename').val(), href, "icon-server-start", 0);
             //updateTab($('#testcasename').val(),"")
         }
 </script>

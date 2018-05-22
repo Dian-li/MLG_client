@@ -1,9 +1,11 @@
 <div class="easyui-layout" style="width:100%;height:100%;" xmlns:width="http://www.w3.org/1999/xhtml">
     <div id="content" region="center" style="padding:5px; width: 100%;height: 100%;">
         <div class="wu-toolbar-button">
-            <a href="#" class="easyui-linkbutton" iconCls="icon-bullet-start" onclick="startTest()" plain="true">开始测试</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-bullet-start" onclick="startTest()"
+               plain="true">开始测试</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-pause-blue" onclick="showTime()" plain="true">暂停测试</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-bullet-stop-alt" onclick="stopTest()" plain="true">停止测试</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-bullet-stop-alt" onclick="stopTest()"
+               plain="true">停止测试</a>
         </div>
         <table class="table table-celled table-structured">
             <thead>
@@ -13,54 +15,67 @@
             </thead>
             <tbody>
             <tr>
-                <td  align="center" width="25%"><label>测试用例名称:</label><label id="testcasename2"   style="width: 200px"></label>
+                <td align="center" width="25%"><label>测试用例名称:</label><label id="test_testcasename"
+                                                                            style="width: 200px"></label>
                 </td>
-                <td align="center" width="25%"><label>测试协议类型：</label><label id="protocol"   style="width: 200px"></label>
+                <td align="center" width="25%"><label>测试协议类型：</label><label id="test_protocol"
+                                                                            style="width: 200px"></label>
                 </td>
-                <td align="center" width="25%"><label>备注:</label><label id="remark2"  style="width: 200px" ></label>
+                <td align="center" width="25%"><label>备注:</label><label id="test_remark" style="width: 200px"></label>
                 </td>
                 <!--<td  align="center" width="25%"><label>被测服务器地址:</label><label id="address"  style="width: 200px" >10.100.24.2:8080</label>-->
                 <!--</td>-->
-                <td  align="center" width="25%"><label>脚本文件名称:</label><label id="testfile2"   style="width: 200px"  ></label>
+                <td align="center" width="25%"><label>脚本文件名称:</label><label id="test_testfile"
+                                                                            style="width: 200px"></label>
                 </td>
 
             </tr>
 
             <tr>
 
-                <td align="center" width="25%"><label>参数文件名称：</label><label id="paramfile2"   style="width: 200px" ></label>
+                <td align="center" width="25%"><label>参数文件名称：</label><label id="test_paramfile"
+                                                                            style="width: 200px"></label>
                 </td>
-                <td align="center" width="25%"><label>并发模式:</label><label id="mode2"  style="width: 200px" ></label>
+                <td align="center" width="25%"><label>并发模式:</label><label id="test_mode" style="width: 200px"></label>
                 </td>
-                <td  align="center" width="25%"><label>时延阈值（MS）:</label><label id="timedelay2"  style="width: 200px" ></label>
+                <td align="center" width="25%"><label>时延阈值（MS）:</label><label id="test_timedelay"
+                                                                              style="width: 200px"></label>
                 </td>
-                <td  align="center" width="25%"><label>成功率阈值（%）:</label><label id="successThreshold2"   style="width: 200px"  ></label>
-                </td>
-
-
-            </tr>
-
-            <tr>
-                <td align="center" width="25%"><label>压力模型：</label><label id="pressureMode2"   style="width: 200px" ></label>
+                <td align="center" width="25%"><label>成功率阈值（%）:</label><label id="test_successThreshold"
+                                                                              style="width: 200px"></label>
                 </td>
 
-                <td align="center" width="25%"><label>调节间隔(S)</label><label id="timeInterval2"  style="width: 200px" ></label>
-                </td>
-                <td  align="center" width="25%"><label>变化步长(S):</label><label id="step2"  style="width: 200px" ></label>
-                </td>
-                <td  align="center" width="25%"><label>初始压力（TPS）:</label><label id="initPressure2"  style="width: 200px" ></label>
-                </td>
 
             </tr>
 
             <tr>
-
-                <td  align="center" width="25%"><label>并发用户:</label><label id="virtualUser"   style="width: 200px"  ></label>
-                </td>
-                <td  align="center" width="25%"><label>测试时长(S):</label><label id="testTime2"   style="width: 200px"  ></label>
+                <td align="center" width="25%"><label>压力模型：</label><label id="test_pressureMode"
+                                                                          style="width: 200px"></label>
                 </td>
 
-                <td align="center" width="25%"><label>目标压力(TPS)：</label><label id="targetPressure2"   style="width: 200px" ></label>
+                <td align="center" width="25%"><label>调节间隔(S)</label><label id="test_timeInterval"
+                                                                            style="width: 200px"></label>
+                </td>
+                <td align="center" width="25%"><label>变化步长(S):</label><label id="test_step"
+                                                                             style="width: 200px"></label>
+                </td>
+                <td align="center" width="25%"><label>初始压力（TPS）:</label><label id="test_initPressure"
+                                                                               style="width: 200px"></label>
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td align="center" width="25%"><label>并发用户:</label><label id="test_virtualUser"
+                                                                          style="width: 200px"></label>
+                </td>
+                <td align="center" width="25%"><label>测试时长(S):</label><label id="test_testTime"
+                                                                             style="width: 200px"></label>
+                </td>
+
+                <td align="center" width="25%"><label>目标压力(TPS)：</label><label id="test_targetPressure"
+                                                                               style="width: 200px"></label>
                 </td>
                 <td></td>
 
@@ -119,30 +134,33 @@
     var testConf = getTestConf();
     //document.getElementById('testcasename').innerText(testConf[0]) ;
     //document.getElementById('remark').innerText(testConf[1]) ;
-    $('#testcasename2').html(testConf[0]);
-    $('#protocol').html(testConf[1]);
-    $('#remark2').html(testConf[2]);
-    $('#testfile2').html(testConf[3]);
-    $('#paramfile2').html(testConf[4]);
-    $('#mode2').html(testConf[5]);
-    $('#timedelay2').html(testConf[6]);
-    $('#successThreshold2').html(testConf[7]);
-    $('#pressureMode2').html(testConf[8]);
-    $('#initPressure2').html(testConf[9]);
-    $('#virtualUser').html(testConf[10]);
-    $('#timeInterval2').html(testConf[11]);
-    $('#step2').html(testConf[12]);
-    $('#testTime2').html(testConf[13]);
-    $('#targetPressure2').html(testConf[14]);
+
+    $('#test_testcasename').html(testConf[0]);
+    $('#test_protocol').html(testConf[1]);
+    $('#test_remark').html(testConf[2]);
+    $('#test_testfile').html(testConf[3]);
+    $('#test_paramfile').html(testConf[4]);
+    $('#test_mode').html(testConf[5]);
+    $('#test_timedelay').html(testConf[6]);
+    $('#test_successThreshold').html(testConf[7]);
+    $('#test_pressureMode').html(testConf[8]);
+    $('#test_initPressure').html(testConf[9]);
+    $('#test_virtualUser').html(testConf[10]);
+    $('#test_timeInterval').html(testConf[11]);
+    $('#test_step').html(testConf[12]);
+    $('#test_testTime').html(testConf[13]);
+    $('#test_targetPressure').html(testConf[14]);
+
+    alert(testConf);
 
     var testnodes = new Array();
     testnodes = getIpList();
     $('#nodesfortest').datagrid({
         fitColumns: true,
-        rownumbers:true,
-        singleSelect:true,
-        columns:[[{field:'ip',title:'主机地址',width:100},{field:'power',title:'负载比例(%)',width:100}]],
-        data:testnodes
+        rownumbers: true,
+        singleSelect: true,
+        columns: [[{field: 'ip', title: '主机地址', width: 100}, {field: 'power', title: '负载比例(%)', width: 100}]],
+        data: testnodes
     });
     var timeTicket;
     // 路径配置
@@ -161,10 +179,9 @@
         function (ec) {
             drawEcharts(ec);
         }
-
     );
 
-    function drawEcharts(ec){
+    function drawEcharts(ec) {
         drawTPS(ec);
         drawIndicator(ec);
         drawCPU(ec);
@@ -172,6 +189,7 @@
         drawNET(ec);
         drawMEM(ec);
     }
+
     var myChart;
     var myCpuChart;
     var myIndicatorChart;
@@ -183,57 +201,57 @@
         // 基于准备好的dom，初始化echarts图表
         myChart = ec.init(document.getElementById('chart-tps'));
         var option = {
-            title:{
-                text:'TPS'
+            title: {
+                text: 'TPS'
             },
             tooltip: {
                 show: true,
                 trigger: 'axis'
             },
             toolbox: {
-                show : true,
-                feature : {
-                    dataView : {show: true, readOnly: false},
-                    magicType : {show: true, type: ['line', 'bar']},
-                    restore : {show: true},
-                    saveAsImage : {show: true}
+                show: true,
+                feature: {
+                    dataView: {show: true, readOnly: false},
+                    magicType: {show: true, type: ['line', 'bar']},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
                 }
             },
             legend: {
-                data:['TPS']
+                data: ['TPS']
             },
-            dataZoom : {
-                show : false,
-                start : 0,
-                end : 100
+            dataZoom: {
+                show: false,
+                start: 0,
+                end: 100
             },
-            xAxis : [
+            xAxis: [
                 {
-                    type : 'category',
-                    boundaryGap : true,
-                    data : (function (){
+                    type: 'category',
+                    boundaryGap: true,
+                    data: (function () {
                         //var now = new Date();
                         var res = [];
                         res.unshift(showTime());
                         return res;
                     })()
-               }
+                }
             ],
-            yAxis : [
+            yAxis: [
 
                 {
-                    type : 'value',
+                    type: 'value',
                     scale: true,
-                    name : 'TPS',
+                    name: 'TPS',
                     boundaryGap: [0.2, 0.2]
                 }
 
             ],
-            series : [
+            series: [
                 {
-                    name:'TPS',
-                    type:'line',
-                    data:(function (){
+                    name: 'TPS',
+                    type: 'line',
+                    data: (function () {
                         var res = [];
                         var len = 10;
                         res.push(0);
@@ -243,43 +261,43 @@
             ]
         };
         // 为echarts对象加载数据
-        myChart.setOption(option,true);
+        myChart.setOption(option, true);
     }
 
     function drawIndicator(ec) {
         // 基于准备好的dom，初始化echarts图表
-        myIndicatorChart =  ec.init(document.getElementById('chart-indicator'));
+        myIndicatorChart = ec.init(document.getElementById('chart-indicator'));
 
         var option = {
-            title:{
-                text:'指标'
+            title: {
+                text: '指标'
             },
             tooltip: {
                 show: true,
                 trigger: 'axis'
             },
             toolbox: {
-                show : true,
-                feature : {
-                    dataView : {show: true, readOnly: false},
-                    magicType : {show: true, type: ['line', 'bar']},
-                    restore : {show: true},
-                    saveAsImage : {show: true}
+                show: true,
+                feature: {
+                    dataView: {show: true, readOnly: false},
+                    magicType: {show: true, type: ['line', 'bar']},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
                 }
             },
             legend: {
-                data:['平均时延','最大时延','最小时延']
+                data: ['平均时延', '最大时延', '最小时延']
             },
-            dataZoom : {
-                show : false,
-                start : 0,
-                end : 100
+            dataZoom: {
+                show: false,
+                start: 0,
+                end: 100
             },
-            xAxis : [
+            xAxis: [
                 {
-                    type : 'category',
-                    boundaryGap : true,
-                    data : (function (){
+                    type: 'category',
+                    boundaryGap: true,
+                    data: (function () {
                         var now = new Date();
                         var res = [];
                         res.unshift(showTime());
@@ -287,19 +305,19 @@
                     })()
                 }
             ],
-            yAxis : [
+            yAxis: [
                 {
-                    type : 'value',
+                    type: 'value',
                     scale: true,
-                    name : '时延(s)',
+                    name: '时延(s)',
                     boundaryGap: [0.2, 0.2]
                 }
             ],
-            series : [
+            series: [
                 {
-                    name:'平均时延',
-                    type:'line',
-                    data:(function (){
+                    name: '平均时延',
+                    type: 'line',
+                    data: (function () {
                         var res = [];
                         var len = 10;
                         res.push(0);
@@ -307,9 +325,9 @@
                     })()
                 },
                 {
-                    name:'最大时延',
-                    type:'line',
-                    data:(function (){
+                    name: '最大时延',
+                    type: 'line',
+                    data: (function () {
                         var res = [];
                         var len = 10;
                         res.push(0);
@@ -317,9 +335,9 @@
                     })()
                 },
                 {
-                    name:'最小时延',
-                    type:'line',
-                    data:(function (){
+                    name: '最小时延',
+                    type: 'line',
+                    data: (function () {
                         var res = [];
                         var len = 10;
                         res.push(0);
@@ -328,320 +346,338 @@
                 }
             ]
         };
-        myIndicatorChart.setOption(option,true);
+        myIndicatorChart.setOption(option, true);
 
     }
 
-        function drawCPU(ec) {
-            // 基于准备好的dom，初始化echarts图表
-            myCpuChart =  ec.init(document.getElementById('chart-cpu'));
+    function drawCPU(ec) {
+        // 基于准备好的dom，初始化echarts图表
+        myCpuChart = ec.init(document.getElementById('chart-cpu'));
 
-            var option = {
-                title:{
-                    text:'CPU'
-                },
-                tooltip: {
-                    show: true,
-                    trigger: 'axis'
-                },
-                toolbox: {
-                    show : true,
-                    feature : {
-                        dataView : {show: true, readOnly: false},
-                        magicType : {show: true, type: ['line', 'bar']},
-                        restore : {show: true},
-                        saveAsImage : {show: true}
-                    }
-                },
-                legend: {
-                    data:['CPU']
-                },
-                dataZoom : {
-                    show : false,
-                    start : 0,
-                    end : 100
-                },
-                xAxis : [
-                    {
-                        type : 'category',
-                        boundaryGap : true,
-                        data : (function (){
-                            var now = new Date();
-                            var res = [];
-                            res.unshift(showTime());
-                            return res;
-                        })()
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value',
-                        scale: true,
-                        name : 'CPU利用率(%)',
-                        boundaryGap: [0.2, 0.2]
-                    }
-                ],
-                series : [
-                    {
-                        name:'CPU',
-                        type:'line',
-                        data:(function (){
-                            var res = [];
-                            var len = 10;
-                            res.push(0);
-                            return res;
-                        })()
-                    }
-                ]
-            };
-            myCpuChart.setOption(option,true);
+        var option = {
+            title: {
+                text: 'CPU'
+            },
+            tooltip: {
+                show: true,
+                trigger: 'axis'
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    dataView: {show: true, readOnly: false},
+                    magicType: {show: true, type: ['line', 'bar']},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            legend: {
+                data: ['CPU']
+            },
+            dataZoom: {
+                show: false,
+                start: 0,
+                end: 100
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: true,
+                    data: (function () {
+                        var now = new Date();
+                        var res = [];
+                        res.unshift(showTime());
+                        return res;
+                    })()
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    scale: true,
+                    name: 'CPU利用率(%)',
+                    boundaryGap: [0.2, 0.2]
+                }
+            ],
+            series: [
+                {
+                    name: 'CPU',
+                    type: 'line',
+                    data: (function () {
+                        var res = [];
+                        var len = 10;
+                        res.push(0);
+                        return res;
+                    })()
+                }
+            ]
+        };
+        myCpuChart.setOption(option, true);
 
-        }
+    }
 
-        function drawIO(ec) {
-            // 基于准备好的dom，初始化echarts图表
-            myIOChart =  ec.init(document.getElementById('chart-IO'));
+    function drawIO(ec) {
+        // 基于准备好的dom，初始化echarts图表
+        myIOChart = ec.init(document.getElementById('chart-IO'));
 
-            var option = {
-                title:{
-                    text:'磁盘IO'
+        var option = {
+            title: {
+                text: '磁盘IO'
+            },
+            tooltip: {
+                show: true,
+                trigger: 'axis'
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    dataView: {show: true, readOnly: false},
+                    magicType: {show: true, type: ['line', 'bar']},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            legend: {
+                data: ['读', '写']
+            },
+            dataZoom: {
+                show: false,
+                start: 0,
+                end: 100
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: true,
+                    data: (function () {
+                        //var now = new Date();
+                        var res = [];
+                        res.unshift(showTime());
+                        return res;
+                    })()
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    scale: true,
+                    name: '磁盘IO速率(kb/s)',
+                    boundaryGap: [0.2, 0.2]
+                }
+            ],
+            series: [
+                {
+                    name: '读',
+                    type: 'line',
+                    data: (function () {
+                        var res = [];
+                        var len = 10;
+                        res.push(0);
+                        return res;
+                    })()
                 },
-                tooltip: {
-                    show: true,
-                    trigger: 'axis'
-                },
-                toolbox: {
-                    show : true,
-                    feature : {
-                        dataView : {show: true, readOnly: false},
-                        magicType : {show: true, type: ['line', 'bar']},
-                        restore : {show: true},
-                        saveAsImage : {show: true}
-                    }
-                },
-                legend: {
-                    data:['读','写']
-                },
-                dataZoom : {
-                    show : false,
-                    start : 0,
-                    end : 100
-                },
-                xAxis : [
-                    {
-                        type : 'category',
-                        boundaryGap : true,
-                        data : (function (){
-                            //var now = new Date();
-                            var res = [];
-                            res.unshift(showTime());
-                            return res;
-                        })()
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value',
-                        scale: true,
-                        name : '磁盘IO速率(kb/s)',
-                        boundaryGap: [0.2, 0.2]
-                    }
-                ],
-                series : [
-                    {
-                        name:'读',
-                        type:'line',
-                        data:(function (){
-                            var res = [];
-                            var len = 10;
-                            res.push(0);
-                            return res;
-                        })()
-                    },
-                    {
-                        name:'写',
-                        type:'line',
-                        data:(function (){
-                            var res = [];
-                            var len = 10;
-                            res.push(0);
-                            return res;
-                        })()
-                    }
-                ]
-            };
-            myIOChart.setOption(option,true);
+                {
+                    name: '写',
+                    type: 'line',
+                    data: (function () {
+                        var res = [];
+                        var len = 10;
+                        res.push(0);
+                        return res;
+                    })()
+                }
+            ]
+        };
+        myIOChart.setOption(option, true);
 
-        }
+    }
 
-        function drawNET(ec) {
-            // 基于准备好的dom，初始化echarts图表
-            myNetChart =  ec.init(document.getElementById('chart-net'));
+    function drawNET(ec) {
+        // 基于准备好的dom，初始化echarts图表
+        myNetChart = ec.init(document.getElementById('chart-net'));
 
 
-            var option = {
-                title:{
-                    text:'网络利用率'
-                },
-                tooltip: {
-                    show: true,
-                    trigger: 'axis'
-                },
-                toolbox: {
-                    show : true,
-                    feature : {
-                        dataView : {show: true, readOnly: false},
-                        magicType : {show: true, type: ['line', 'bar']},
-                        restore : {show: true},
-                        saveAsImage : {show: true}
-                    }
-                },
-                legend: {
-                    data:['发送','接收']
-                },
-                dataZoom : {
-                    show : false,
-                    start : 0,
-                    end : 100
-                },
-                xAxis : [
-                    {
-                        type : 'category',
-                        boundaryGap : true,
-                        data : (function (){
-                            //var now = new Date();
-                            var res = [];
-                            res.unshift(showTime());
+        var option = {
+            title: {
+                text: '网络利用率'
+            },
+            tooltip: {
+                show: true,
+                trigger: 'axis'
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    dataView: {show: true, readOnly: false},
+                    magicType: {show: true, type: ['line', 'bar']},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            legend: {
+                data: ['发送', '接收']
+            },
+            dataZoom: {
+                show: false,
+                start: 0,
+                end: 100
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: true,
+                    data: (function () {
+                        //var now = new Date();
+                        var res = [];
+                        res.unshift(showTime());
 
-                            return res;
-                        })()
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value',
-                        scale: true,
-                        name : '网络利用率(bps)',
-                        boundaryGap: [0.2, 0.2]
-                    }
-                ],
-                series : [
-                    {
-                        name:'发送',
-                        type:'line',
-                        data:(function (){
-                            var res = [];
-                            var len = 10;
-                            res.push(0);
-                            return res;
-                        })()
-                    },
-                    {
-                        name:'接收',
-                        type:'line',
-                        data:(function (){
-                            var res = [];
-                            var len = 10;
-                            res.push(0);
-                            return res;
-                        })()
-                    }
-                ]
-            };
-            myNetChart.setOption(option,true);
+                        return res;
+                    })()
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    scale: true,
+                    name: '网络利用率(bps)',
+                    boundaryGap: [0.2, 0.2]
+                }
+            ],
+            series: [
+                {
+                    name: '发送',
+                    type: 'line',
+                    data: (function () {
+                        var res = [];
+                        var len = 10;
+                        res.push(0);
+                        return res;
+                    })()
+                },
+                {
+                    name: '接收',
+                    type: 'line',
+                    data: (function () {
+                        var res = [];
+                        var len = 10;
+                        res.push(0);
+                        return res;
+                    })()
+                }
+            ]
+        };
+        myNetChart.setOption(option, true);
 
-        }
+    }
 
-        function drawMEM(ec) {
-            // 基于准备好的dom，初始化echarts图表
-            myMemChart =  ec.init(document.getElementById('chart-mem'));
-            var option = {
-                title:{
-                    text:'内存'
+    function drawMEM(ec) {
+        // 基于准备好的dom，初始化echarts图表
+        myMemChart = ec.init(document.getElementById('chart-mem'));
+        var option = {
+            title: {
+                text: '内存'
+            },
+            tooltip: {
+                show: true
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    dataView: {show: true, readOnly: false},
+                    magicType: {show: true, type: ['line', 'bar']},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            legend: {
+                data: ['物理内存', '虚拟内存']
+            },
+            dataZoom: {
+                show: false,
+                start: 0,
+                end: 100
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: true,
+                    data: (function () {
+                        var now = new Date();
+                        var res = [];
+                        res.unshift(showTime());
+                        now = new Date(now - 2000);
+                        return res;
+                    })()
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    scale: true,
+                    name: '内存使用率(%)',
+                    boundaryGap: [0.2, 0.2]
+                }
+            ],
+            series: [
+                {
+                    name: '物理内存',
+                    type: 'line',
+                    data: (function () {
+                        var res = [];
+                        var len = 10;
+                        res.push(0);
+                        return res;
+                    })()
                 },
-                tooltip: {
-                    show: true
-                },
-                toolbox: {
-                    show : true,
-                    feature : {
-                        dataView : {show: true, readOnly: false},
-                        magicType : {show: true, type: ['line', 'bar']},
-                        restore : {show: true},
-                        saveAsImage : {show: true}
-                    }
-                },
-                legend: {
-                    data:['物理内存','虚拟内存']
-                },
-                dataZoom : {
-                    show : false,
-                    start : 0,
-                    end : 100
-                },
-                xAxis : [
-                    {
-                        type : 'category',
-                        boundaryGap : true,
-                        data : (function (){
-                            var now = new Date();
-                            var res = [];
-                            res.unshift(showTime());
-                            now = new Date(now - 2000);
-                            return res;
-                        })()
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value',
-                        scale: true,
-                        name : '内存使用率(%)',
-                        boundaryGap: [0.2, 0.2]
-                    }
-                ],
-                series : [
-                    {
-                        name:'物理内存',
-                        type:'line',
-                        data:(function (){
-                            var res = [];
-                            var len = 10;
-                            res.push(0);
-                            return res;
-                        })()
-                    },
-                    {
-                        name:'虚拟内存',
-                        type:'line',
-                        data:(function (){
-                            var res = [];
-                            res.push(0);
-                            return res;
-                        })()
-                    }
-                ]
-            };
-            myMemChart.setOption(option,true);
+                {
+                    name: '虚拟内存',
+                    type: 'line',
+                    data: (function () {
+                        var res = [];
+                        res.push(0);
+                        return res;
+                    })()
+                }
+            ]
+        };
+        myMemChart.setOption(option, true);
 
-        }
+    }
 
     function startTest() {
         iplist = new Array();
         ratiolist = new Array();
-        for(var i=0;i<testnodes.length;i++){
+        for (var i = 0; i < testnodes.length; i++) {
             iplist.push(testnodes[i].ip);
             ratiolist.push(testnodes[i].power);
         }
+
         $.ajax({
             type: 'POST',
             url: 'http://localhost:8080/MLG/test/testBegin',
             dataType: "json",
-            data:{TESTCASENAME:$('#testcasename2').text(),TPS:$('#initPressure2').text(),DURATION:$('#testTime2').text(),IP:iplist,RATIO:ratiolist},
+            data: {
+                TESTCASENAME: $('#test_testcasename').text(),
+                PROTOCOL:$('#test_protocol').text(),
+                REMARK:$('#test_remark').text(),
+                SCRIPTNAME:$('#test_testfile').text(),
+                PARAMFILENAME:$('#test_paramfile').text(),
+                CONCURRENCE:$('#test_mode').text(),
+                TIMEDELAY:$('#test_timedelay').text(),
+                THRESHOLD:$('#test_successThreshold').text(),
+                PRESSUREMODE:$('#test_pressureMode').text(),
+                TPS: $('#test_initPressure').text(),
+                STEP:$('#test_step').text(),
+                DURATION: $('#test_testTime').text(),
+                TARGET:$('#test_targetPressure').text(),
+                IP: iplist,
+                RATIO: ratiolist
+            },
             cache: false,
             async: true,
             error: function () {
                 alert('系统连接失败，请稍后再试！')
+                console.log("connection errors!");
             },
             success: function (obj) {
                 if (obj.errCode == 0) {
@@ -656,7 +692,7 @@
             type: 'POST',
             url: 'http://localhost:8080/MLG/test/testEnd',
             dataType: "json",
-            data:{TESTCASENAME:$('#testcasename2').text()},
+            data: {TESTCASENAME: $('#testcasename2').text()},
             cache: false,
             async: true,
             error: function () {
@@ -674,21 +710,24 @@
     function startDataCollection() {
         var lastData = 11;
         var axisData;
-        var cpuTime,ioTime,memTime,netTime;
-        var cpu=0,recv=0,send=0,mem=0,vmem=0,read=0,write=0,avg_delay=0,max_delay=0,min_delay=0;
+        var cpuTime, ioTime, memTime, netTime;
+        var cpu = 0, recv = 0, send = 0, mem = 0, vmem = 0, read = 0, write = 0, avg_delay = 0, max_delay = 0,
+            min_delay = 0;
         clearInterval(timeTicket);
-        timeTicket = setInterval(function (){
+        timeTicket = setInterval(function () {
 
             $.ajax({
                 type: 'GET',
                 url: 'http://localhost:8080/MLG/test/dataCollection',
-                dataType:"json",
-                data:{TESTCASENAME:$('#testcasename2').text()},
-                cache : false,
+                dataType: "json",
+                data: {TESTCASENAME: $('#testcasename2').text()},
+                cache: false,
                 async: true,
-                error:function(){alert('系统连接失败，请稍后再试！')},
-                success: function(obj){
-                    if(obj.RET_INFO.errCode==0){
+                error: function () {
+                    alert('系统连接失败，请稍后再试！')
+                },
+                success: function (obj) {
+                    if (obj.RET_INFO.errCode == 0) {
                         cpuTime = obj.CPU.TIME;
                         cpu = parseFloat(obj.CPU.CPU);
                         myCpuChart.addData([
@@ -702,7 +741,7 @@
                         ]);
 
                         ioTime = obj.IO.TIME;
-                        read= parseFloat(obj.IO.READ);
+                        read = parseFloat(obj.IO.READ);
                         write = parseFloat(obj.IO.WRITE);
                         myIOChart.addData([
                             [
@@ -765,7 +804,7 @@
                         min_delay = parseFloat(obj.INDICATOR.min_delay);
 
                         var delayTime = showTime();
-                        console.log(avg_delay+","+delayTime);
+                        console.log(avg_delay + "," + delayTime);
                         myIndicatorChart.addData([
                             [
                                 0,        // 系列索引
@@ -791,7 +830,8 @@
                         ]);
 
                     }
-                }});
+                }
+            });
 
             //lastData = +1000*Math.random() * ((Math.round(Math.random() * 10) % 2) == 0 ? 1 : -1);
             //if(lastData<0) lastData=500;
@@ -817,11 +857,15 @@
 
     function showTime() {
 
-        var myDate=new Date();
+        var myDate = new Date();
         var date = myDate.getFullYear() + "-" + sup(myDate.getMonth()) + "-" + sup(myDate.getDate());
         var time = sup(myDate.getHours()) + ":" + sup(myDate.getMinutes()) + ":" + sup(myDate.getSeconds());
-       // alert(date + " " + time);
-        function sup ( n ) { return (n<10) ? '0'+n : n; }
+
+        // alert(date + " " + time);
+        function sup(n) {
+            return (n < 10) ? '0' + n : n;
+        }
+
         return time;
     }
 
