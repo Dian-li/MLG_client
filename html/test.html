@@ -44,8 +44,6 @@
                 <td align="center" width="25%"><label>成功率阈值（%）:</label><label id="test_successThreshold"
                                                                               style="width: 200px"></label>
                 </td>
-
-
             </tr>
 
             <tr>
@@ -151,10 +149,10 @@
     $('#test_testTime').html(testConf[13]);
     $('#test_targetPressure').html(testConf[14]);
 
-    alert(testConf);
 
     var testnodes = new Array();
     testnodes = getIpList();
+    alert(testnodes);
     $('#nodesfortest').datagrid({
         fitColumns: true,
         rownumbers: true,
@@ -652,24 +650,47 @@
             ratiolist.push(testnodes[i].power);
         }
 
+        var concurrence;
+        if ("同步"==$('#test_mode').text()) {
+            concurrence = 0;
+        } else if ("异步"==$('#test_mode').text()) {
+            concurrence = 1;
+        }else{
+            concurrence = -1;
+        }
+        var mode;
+        if("递增"==$('#test_pressureMode').text()){
+            mode = 0;
+        }else if("递减"==$('#test_pressureMode').text()){
+            mode = 1;
+        }else if("方波"==$('#test_pressureMode').text()){
+            mode = 2;
+        }else if("曲波"==$('#test_pressureMode').text()){
+            mode = 3;
+        }else if("自动摸顶"==$('#test_pressureMode').text()){
+            mode = 4;
+        }else{
+            mode = -1;
+        }
+
         $.ajax({
             type: 'POST',
             url: 'http://localhost:8080/MLG/test/testBegin',
             dataType: "json",
             data: {
                 TESTCASENAME: $('#test_testcasename').text(),
-                PROTOCOL:$('#test_protocol').text(),
-                REMARK:$('#test_remark').text(),
-                SCRIPTNAME:$('#test_testfile').text(),
-                PARAMFILENAME:$('#test_paramfile').text(),
-                CONCURRENCE:$('#test_mode').text(),
-                TIMEDELAY:$('#test_timedelay').text(),
-                THRESHOLD:$('#test_successThreshold').text(),
-                PRESSUREMODE:$('#test_pressureMode').text(),
+                PROTOCOL: $('#test_protocol').text(),
+                REMARK: $('#test_remark').text(),
+                SCRIPTNAME: $('#test_testfile').text(),
+                PARAMFILENAME: $('#test_paramfile').text(),
+                CONCURRENCE: concurrence,
+                TIMEDELAY: $('#test_timedelay').text(),
+                THRESHOLD: $('#test_successThreshold').text(),
+                PRESSUREMODE: mode,
                 TPS: $('#test_initPressure').text(),
-                STEP:$('#test_step').text(),
+                STEP: $('#test_step').text(),
                 DURATION: $('#test_testTime').text(),
-                TARGET:$('#test_targetPressure').text(),
+                TARGET: $('#test_targetPressure').text(),
                 IP: iplist,
                 RATIO: ratiolist
             },

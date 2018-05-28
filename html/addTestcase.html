@@ -4,59 +4,65 @@
         <form id="testcase-form" method="post" style="height: 100%;width: 100%">
             <table class="table table-celled table-structured">
                 <thead>
-                    <tr>
-                        <th colspan="3" style="text-align: center; background-color: #F5F5F5">测试用例配置</th>
-                    </tr>
+                <tr>
+                    <th colspan="3" style="text-align: center; background-color: #F5F5F5">测试用例配置</th>
+                </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <td width="100px" style="text-align: center;background-color: #F5F5F5" rowspan="3">测试基本信息</td>
                     <td width="100px" style="text-align: center">测试用例名称:</td>
-                    <td width="100px" align="left"><input id="testcasename" class="easyui-textbox" type="text" style="float:right;width: 200px" name="testname" data-options="required:true" />
+                    <td width="100px" align="left"><input id="testcasename" class="easyui-textbox" type="text"
+                                                          style="float:right;width: 200px" name="testname"
+                                                          data-options="required:true"/>
                     </td>
                 </tr>
                 <tr>
                     <td width="100px" style="text-align: center">测试协议类型：</td>
-                    <td><select id="protocol" name="protocol" class="easyui-combobox" style="width: 200px" onclick="selectMyscript()">
-                        <option value="">请选择协议类型</option>
-                        <option value="socket">Socket</option>
-                        <option value="http" >HTTP</option>
-                        <option value="ftp" >FTP</option>
-                        <option value="db" >数据库</option>
-                        <option value="mixture" >混合协议</option>
+                    <td><select id="protocol" name="protocol" class="easyui-combobox" style="width: 200px"
+                                onclick="selectMyscript()">
+                        <option value="UNKNOWN">请选择协议类型</option>
+                        <option value="TCP">TCP</option>
+                        <option value="HTTP">HTTP</option>
+                        <option value="FTP">FTP</option>
+                        <option value="DB">数据库</option>
                     </select>
                     </td>
                 </tr>
                 <tr>
                     <td width="100px" style="text-align: center">备注:</td>
-                    <td align="left"><input id="remark" name="remark" class="easyui-textbox" type="text" style="float:right;width: 200px" name="testname"  />
+                    <td align="left"><input id="remark" name="remark" class="easyui-textbox" type="text"
+                                            style="float:right;width: 200px" name="testname"/>
                     </td>
                 </tr>
                 <!--<tr>-->
-                    <!--<td width="100px" style="text-align: center;background-color: #F5F5F5" rowspan="2">被测服务器信息</td>-->
-                    <!--<td width="100px" style="text-align: center">被测服务器地址:</td>-->
-                    <!--<td width="100px" align="left"><input id="testmechineip" name="testmechineip" class="easyui-textbox" type="text" style="float:right;width: 200px" name="testname" data-options="required:true" />-->
-                    <!--</td>-->
+                <!--<td width="100px" style="text-align: center;background-color: #F5F5F5" rowspan="2">被测服务器信息</td>-->
+                <!--<td width="100px" style="text-align: center">被测服务器地址:</td>-->
+                <!--<td width="100px" align="left"><input id="testmechineip" name="testmechineip" class="easyui-textbox" type="text" style="float:right;width: 200px" name="testname" data-options="required:true" />-->
+                <!--</td>-->
                 <!--</tr>-->
                 <!--<tr>-->
-                    <!--<td width="100px" style="text-align: center">端口:</td>-->
-                    <!--<td align="left"><input id="port" class="easyui-textbox" name="port" type="text" style="float:right;width: 200px" name="testname" data-options="required:true" />-->
-                    <!--</td>-->
+                <!--<td width="100px" style="text-align: center">端口:</td>-->
+                <!--<td align="left"><input id="port" class="easyui-textbox" name="port" type="text" style="float:right;width: 200px" name="testname" data-options="required:true" />-->
+                <!--</td>-->
                 <!--</tr>-->
 
                 <tr>
                     <td width="100px" style="text-align: center;background-color: #F5F5F5" rowspan="2">文件配置</td>
                     <td width="100px" style="text-align: center">选择脚本文件：</td>
                     <td><select id="testlist" name="testfile" class="easyui-combobox" style="width: 200px">
-                        <option value="">选择脚本文件</option>
+                        <option value=""></option>
                     </select>
-                        <label style="color: #93a1a1">平均响应时间：</label><label id="scripttime" style="color: #93a1a1">--</label><label style="color: #93a1a1">S</label>
+                        <label style="color: #93a1a1">平均响应时间：</label><label id="scripttime"
+                                                                            style="color: #93a1a1">--</label><label
+                                style="color: #93a1a1">S</label>
                     </td>
                 </tr>
                 <tr>
                     <td width="100px" style="text-align: center">选择参数文件：</td>
-                    <td><select id="paramlist" name="paramfile" class="easyui-combobox" style="width: 200px" onclick="selectMyParam()">
-                        <option value="">选择参数文件</option>
+                    <td><select id="paramlist" name="paramfile" class="easyui-combobox" style="width: 200px"
+                                onclick="selectMyParam()">
+                        <option value=""></option>
                     </select>
                     </td>
                 </tr>
@@ -64,31 +70,37 @@
                 <tr>
                     <td width="100px" style="text-align: center;background-color: #F5F5F5" rowspan="10">测试环境配置</td>
                     <td width="100px" style="text-align: center">并发模式：</td>
-                    <td><select id="concurrentMode" name="mode" class="easyui-combobox" style="width: 200px" onclick="selectMyscript()">
-                        <option value="synchronous" selected>同步</option>
-                        <option value="saynchronous" >异步</option>
+                    <td><select id="concurrentMode" name="mode" class="easyui-combobox" style="width: 200px"
+                                onclick="selectMyscript()">
+                        <option value="1" selected>同步</option>
+                        <option value="2">异步</option>
                     </select>
                     </td>
                 </tr>
                 <tr>
                     <td width="100px" style="text-align: center">时延阈值（MS）:</td>
-                    <td align="left"><input id="timedelay" name="timedelay" class="easyui-textbox" type="text" style="float:right;width: 200px" name="testname" data-options="required:true" />
+                    <td align="left"><input id="timedelay" name="timedelay" class="easyui-textbox" type="text"
+                                            style="float:right;width: 200px" name="testname"
+                                            data-options="required:true"/>
                     </td>
                 </tr>
                 <tr>
                     <td width="100px" style="text-align: center">成功率阈值（%）:</td>
-                    <td align="left"><input id="success" name="successThreshold" class="easyui-textbox" type="text" style="float:right;width: 200px" name="testname" data-options="required:true" />
+                    <td align="left"><input id="success" name="successThreshold" class="easyui-textbox" type="text"
+                                            style="float:right;width: 200px" name="testname"
+                                            data-options="required:true"/>
                     </td>
                 </tr>
                 <tr>
                     <td width="100px" style="text-align: center">压力模型:</td>
-                    <td><select id="pressureMode" name="pressureMode" class="easyui-combobox" style="width: 200px" onclick="selectMyscript()">
-                        <option value="">请选择压力模型</option>
-                        <option value="increase">递增</option>
-                        <option value="decrease" >递减</option>
-                        <option value="squarewave" >方波</option>
-                        <option value="wave" >曲波</option>
-                        <option value="autotop" >自动摸顶</option>
+                    <td><select id="pressureMode" name="pressureMode" class="easyui-combobox" style="width: 200px"
+                                onclick="selectMyscript()">
+                        <option value="0">请选择压力模型</option>
+                        <option value="1">递增</option>
+                        <option value="2">递减</option>
+                        <option value="3">方波</option>
+                        <option value="4">曲波</option>
+                        <option value="5">自动摸顶</option>
                     </select>
                         <a id="modeimage" href="#" icon="icon-image" class="easyui-linkbutton"></a>
                         <!--<a  href="#" class="easyui-tooltip"></a>-->
@@ -96,55 +108,67 @@
                 </tr>
                 <tr>
                     <td width="100px" style="text-align: center">初始压力(TPS):</td>
-                    <td align="left"><input id="initPressure" name="initPressure" class="easyui-textbox" type="text" style="float:right;width: 200px" name="testname" data-options="required:true" />
+                    <td align="left"><input id="initPressure" name="initPressure" class="easyui-textbox" type="text"
+                                            style="float:right;width: 200px" name="testname"
+                                            data-options="required:true"/>
                     </td>
                 </tr>
                 <tr>
                     <td width="100px" style="text-align: center">并发用户数:</td>
-                    <td align="left"><input id="virtualUsers" name="virtualUsers" class="easyui-textbox" type="text" style="float:right;width: 200px" name="testname" data-options="required:true" />
+                    <td align="left"><input id="virtualUsers" name="virtualUsers" class="easyui-textbox" type="text"
+                                            style="float:right;width: 200px" name="testname"
+                                            data-options="required:true"/>
                     </td>
                 </tr>
                 <tr>
                     <td width="100px" style="text-align: center">调节间隔(S):</td>
-                    <td align="left"><input id="timeInterval" name="timeInterval" class="easyui-textbox" type="text" style="float:right;width: 200px" name="testname" data-options="required:true" />
+                    <td align="left"><input id="timeInterval" name="timeInterval" class="easyui-textbox" type="text"
+                                            style="float:right;width: 200px" name="testname"
+                                            data-options="required:true"/>
                     </td>
                 </tr>
                 <tr>
                     <td width="100px" style="text-align: center">变化步长(TPS):</td>
-                    <td align="left"><input id="step" name="step" class="easyui-textbox" type="text" style="float:right;width: 200px" name="testname" data-options="required:true" />
+                    <td align="left"><input id="step" name="step" class="easyui-textbox" type="text"
+                                            style="float:right;width: 200px" name="testname"
+                                            data-options="required:true"/>
                     </td>
                 </tr>
                 <tr>
                     <td width="100px" style="text-align: center">测试时长(S):</td>
-                    <td align="left"><input id="testTime" name="testTime" class="easyui-textbox" type="text" style="float:right;width: 200px" name="testname" data-options="required:true" />
+                    <td align="left"><input id="testTime" name="testTime" class="easyui-textbox" type="text"
+                                            style="float:right;width: 200px" name="testname"
+                                            data-options="required:true"/>
                     </td>
                 </tr>
                 <tr>
                     <td width="100px" style="text-align: center">目标压力(TPS):</td>
-                    <td align="left"><input id="targetPressure" name="targetPressure" class="easyui-textbox" type="text" style="float:right;width: 200px" name="testname" data-options="required:true" />
+                    <td align="left"><input id="targetPressure" name="targetPressure" class="easyui-textbox" type="text"
+                                            style="float:right;width: 200px" name="testname"
+                                            data-options="required:true"/>
                     </td>
                 </tr>
                 <!--<tr>-->
-                    <!--<td width="100px" style="text-align: center">线程连接池大小:</td>-->
-                    <!--<td align="left"><input id="threadPoolsize" name="threadPoolsize" class="easyui-textbox" type="text" style="float:right;width: 200px" name="testname" data-options="required:true" />-->
-                    <!--</td>-->
+                <!--<td width="100px" style="text-align: center">线程连接池大小:</td>-->
+                <!--<td align="left"><input id="threadPoolsize" name="threadPoolsize" class="easyui-textbox" type="text" style="float:right;width: 200px" name="testname" data-options="required:true" />-->
+                <!--</td>-->
                 <!--</tr>-->
 
                 <!--<tr>-->
-                    <!--<td width="100px" style="text-align: center;background-color: #F5F5F5" rowspan="3">资源监控配置：</td>-->
-                    <!--<td width="100px" style="text-align: center">被测服务器用户名:</td>-->
-                    <!--<td width="100px" align="left"><input id="testUsername" name="testUsername" class="easyui-textbox" type="text" style="float:right;width: 200px" name="testname" data-options="required:true" />-->
-                    <!--</td>-->
+                <!--<td width="100px" style="text-align: center;background-color: #F5F5F5" rowspan="3">资源监控配置：</td>-->
+                <!--<td width="100px" style="text-align: center">被测服务器用户名:</td>-->
+                <!--<td width="100px" align="left"><input id="testUsername" name="testUsername" class="easyui-textbox" type="text" style="float:right;width: 200px" name="testname" data-options="required:true" />-->
+                <!--</td>-->
                 <!--</tr>-->
                 <!--<tr>-->
-                    <!--<td width="100px" style="text-align: center">密码:</td>-->
-                    <!--<td align="left"><input id="testPassword" class="easyui-textbox" name="testPassword" type="password" style="float:right;width: 200px" name="testname" data-options="required:true" />-->
-                    <!--</td>-->
+                <!--<td width="100px" style="text-align: center">密码:</td>-->
+                <!--<td align="left"><input id="testPassword" class="easyui-textbox" name="testPassword" type="password" style="float:right;width: 200px" name="testname" data-options="required:true" />-->
+                <!--</td>-->
                 <!--</tr>-->
                 <!--<tr>-->
-                    <!--<td width="100px" style="text-align: center">采集间隔(S):</td>-->
-                    <!--<td align="left"><input id="dataTime" class="easyui-textbox" name="dataTime" type="text" style="float:right;width: 200px" name="testname" data-options="required:true" />-->
-                    <!--</td>-->
+                <!--<td width="100px" style="text-align: center">采集间隔(S):</td>-->
+                <!--<td align="left"><input id="dataTime" class="easyui-textbox" name="dataTime" type="text" style="float:right;width: 200px" name="testname" data-options="required:true" />-->
+                <!--</td>-->
                 <!--</tr>-->
                 <tr>
                     <table id="testnode" class="easyui-datagrid" style="width:100%;height:auto"
@@ -168,12 +192,13 @@
     </div>
 </div>
 
-<div id="win2" class="easyui-window" title="选择测试节点" closed="true" collapsible="false" maximizable="false" minimizable="false" style="width:500px;height:400px;padding:5px;">
-    <table id="alltestnode" class="easyui-datagrid" style="width:auto;height:auto" singleSelect ="false"
+<div id="win2" class="easyui-window" title="选择测试节点" closed="true" collapsible="false" maximizable="false"
+     minimizable="false" style="width:500px;height:400px;padding:5px;">
+    <table id="alltestnode" class="easyui-datagrid" style="width:auto;height:auto" singleSelect="false"
            title="测试节点配置">
         <thead>
         <tr>
-            <th id="CheckedAll" field="ck"  checkbox="true"></th>
+            <th id="CheckedAll" field="ck" checkbox="true"></th>
             <th field="ADDRESS" width="80">主机地址</th>
         </tr>
         </thead>
@@ -186,137 +211,141 @@
 </div>
 
 <script>
-//    $("#CheckedAll").click(function () {
-//        if ($(this).is(":checked")) {
-//            $("[name=items]:checkbox").attr("checked", true);
-//        } else {
-//            $("[name=items]:checkbox").attr("checked", false);
-//        }
-//    });
-var editIndex = undefined;
+    //    $("#CheckedAll").click(function () {
+    //        if ($(this).is(":checked")) {
+    //            $("[name=items]:checkbox").attr("checked", true);
+    //        } else {
+    //            $("[name=items]:checkbox").attr("checked", false);
+    //        }
+    //    });
+    var editIndex = undefined;
 
-function endEditing(){
-    if (editIndex == undefined){return true}
-    if ($('#testnode').datagrid('validateRow', editIndex)){
-        $('#testnode').datagrid('endEdit', editIndex);
-        editIndex = undefined;
-        return true;
-    } else {
-        return false;
-    }
-}
-function onClickCell(index, field){
-    if (editIndex != index){
-        if (endEditing()){
-            $('#testnode').datagrid('selectRow', index)
-                .datagrid('beginEdit', index);
-            var ed = $('#testnode').datagrid('getEditor', {index:index,field:'power'});
-            if (ed){
-                ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
-            }
-            editIndex = index;
+    function endEditing() {
+        if (editIndex == undefined) {
+            return true
+        }
+        if ($('#testnode').datagrid('validateRow', editIndex)) {
+            $('#testnode').datagrid('endEdit', editIndex);
+            editIndex = undefined;
+            return true;
         } else {
-            setTimeout(function(){
-                $('#testnode').datagrid('selectRow', editIndex);
-            },0);
+            return false;
         }
     }
-}
-function onEndEdit(index, row){
-    var ed = $(this).datagrid('getEditor', {
-        index: index,
-        field: 'power'
-    });
-    row.power = $(ed.target).textbox('getText');
-}
 
-
-//textbox修改
-$('#initPressure').textbox({
-    onChange:function (value) {
-        var time = $('#scripttime').text();
-        if(time>0){
-            $('#virtualUsers').textbox('setValue',parseFloat(value)*parseFloat(time));
-        }
-
-    }
-});
-
-$('#virtualUsers').textbox({
-    onChange:function (value) {
-        var time = $('#scripttime').text();
-        if(time>0){
-            $('#initPressure').textbox('setValue',parseFloat(value)/parseFloat(time));
-        }
-    }
-});
-
-//压力模型选择框
-$("#pressureMode").combobox({
-    onChange:function(record){
-        var type = $('#pressureMode').combobox('getValue');
-        var content;
-        if(type=='increase'){
-            content = '<img src="images/zhe1.png"  width="260" height="110">';
-        }else if(type=='decrease'){
-            content = '<img src="images/zhe2.png"  width="260" height="110">';
-        }else if(type=='squarewave'){
-            content = '<img src="images/zhe3.png"  width="260" height="110">';
-        }else if(type=='wave'){
-            content = '<img src="images/zhe4.png"  width="260" height="110">';
-        }else{
-            content = '<img src="images/zhe5.png"  width="260" height="110">';
-        }
-        $('#modeimage').tooltip({
-            position: 'right',
-            content: content,
-            onShow: function(){
-                $(this).tooltip('tip').css({
-
-                });
+    function onClickCell(index, field) {
+        if (editIndex != index) {
+            if (endEditing()) {
+                $('#testnode').datagrid('selectRow', index)
+                    .datagrid('beginEdit', index);
+                var ed = $('#testnode').datagrid('getEditor', {index: index, field: 'power'});
+                if (ed) {
+                    ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+                }
+                editIndex = index;
+            } else {
+                setTimeout(function () {
+                    $('#testnode').datagrid('selectRow', editIndex);
+                }, 0);
             }
-        });
+        }
+    }
 
-    }});
+    function onEndEdit(index, row) {
+        var ed = $(this).datagrid('getEditor', {
+            index: index,
+            field: 'power'
+        });
+        row.power = $(ed.target).textbox('getText');
+    }
+
+
+    //textbox修改
+    $('#initPressure').textbox({
+        onChange: function (value) {
+            var time = $('#scripttime').text();
+            if (time > 0) {
+                $('#virtualUsers').textbox('setValue', parseFloat(value) * parseFloat(time));
+            }
+
+        }
+    });
+
+    $('#virtualUsers').textbox({
+        onChange: function (value) {
+            var time = $('#scripttime').text();
+            if (time > 0) {
+                $('#initPressure').textbox('setValue', parseFloat(value) / parseFloat(time));
+            }
+        }
+    });
+
+    //压力模型选择框
+    $("#pressureMode").combobox({
+        onChange: function (record) {
+            var type = $('#pressureMode').combobox('getValue');
+            var content;
+            if (type == 'increase') {
+                content = '<img src="images/zhe1.png"  width="260" height="110">';
+            } else if (type == 'decrease') {
+                content = '<img src="images/zhe2.png"  width="260" height="110">';
+            } else if (type == 'squarewave') {
+                content = '<img src="images/zhe3.png"  width="260" height="110">';
+            } else if (type == 'wave') {
+                content = '<img src="images/zhe4.png"  width="260" height="110">';
+            } else {
+                content = '<img src="images/zhe5.png"  width="260" height="110">';
+            }
+            $('#modeimage').tooltip({
+                position: 'right',
+                content: content,
+                onShow: function () {
+                    $(this).tooltip('tip').css({});
+                }
+            });
+
+        }
+    });
 
     //协议选择框
     $('#protocol').combobox({
-        onChange:function(record){
+        onChange: function (record) {
             var myprotocol = $('#protocol').combobox('getValue');
 
-        $.ajax({
-        type: 'GET',
-        url: 'http://localhost:8080/MLG/scriptsMana/listScripts',
-        dataType:"json",
-        data:{S_INDEX:"0",MAX_NUM:"10",SCRIPTTYPE:"test",PROTOCOL:myprotocol,STYPE:'notmodules'},
-        cache : false,
-        async: true,
-        error:function(){alert('系统连接失败，请稍后再试！')},
-        success: function(obj){
-            if(obj.RET_INFO.errCode==0){
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:8080/MLG/scriptsMana/listScripts',
+                dataType: "json",
+                data: {S_INDEX: "0", MAX_NUM: "10", SCRIPTTYPE: "test", PROTOCOL: myprotocol, STYPE: 'notmodules'},
+                cache: false,
+                async: true,
+                error: function () {
+                    alert('系统连接失败，请稍后再试！')
+                },
+                success: function (obj) {
+                    if (obj.RET_INFO.errCode == 0) {
+                        var scriptsArray = new Array();
+                        for (var i = 0; i < obj.SCRIPTS.length; i++) {
+                            var scriptObj = new Object();
+                            scriptObj.text = obj.SCRIPTS[i].SCRIPTNAME;
+                            scriptObj.value = scriptObj.text;
+                            scriptObj.id = scriptObj.text;
+                            //alert(scriptObj.id);
+                            scriptsArray.push(scriptObj);
+                        }
+                        //alert(scriptsArray);
+                        $('#testlist').combobox('loadData', scriptsArray);
+                        // $('#testlist').combobox('getText') ;
 
-                var scriptsArray = new Array();
-                for(var i=0;i<obj.SCRIPTS.length;i++){
-                    var scriptObj = new Object();
-                    scriptObj.text = obj.SCRIPTS[i].SCRIPTNAME;
-                    scriptObj.value = scriptObj.text;
-                    scriptObj.id = scriptObj.text;
-                    //alert(scriptObj.id);
-                    scriptsArray.push(scriptObj);
+                    }
                 }
-                //alert(scriptsArray);
-                $('#testlist').combobox('loadData',scriptsArray);
-                // $('#testlist').combobox('getText') ;
-
-            }
-        }
-    });
+            });
 
             $.ajax({
                 type: 'GET',
                 url: 'http://localhost:8080/MLG/paramfileMana/listParamFiles',
                 dataType: "json",
-                data: {S_INDEX: "0", MAX_NUM: "10",PROTOCOL:myprotocol},
+                data: {S_INDEX: "0", MAX_NUM: "10", PROTOCOL: myprotocol},
                 cache: false,
                 async: true,
                 error: function () {
@@ -344,60 +373,66 @@ $("#pressureMode").combobox({
 
         }
     });
-// 协议选择框结束
+    // 协议选择框结束
 
-$('#testlist').combobox({
-    onChange:function(record){
-        var scriptname = $('#testlist').combobox('getText');
-        var myprotocol = $('#protocol').combobox('getValue');
-        $.ajax({
-            type: 'GET',
-            url: 'http://localhost:8080/MLG/scriptsMana/getScriptTime',
-            dataType:"json",
-            data:{SCRIPTNAME:scriptname,PROTOCOL:myprotocol,STYPE:'notmodules'},
-            cache : false,
-            async: true,
-            error:function(){alert('系统连接失败，请稍后再试！')},
-            success: function(obj){
-                if(obj.RET_INFO.errCode==0){
-                    var time = obj.EXETIME.toString();
-                    $('#scripttime').html(time);
+    $('#testlist').combobox({
+        onChange: function (record) {
+            var scriptname = $('#testlist').combobox('getText');
+            var myprotocol = $('#protocol').combobox('getValue');
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:8080/MLG/scriptsMana/getScriptTime',
+                dataType: "json",
+                data: {SCRIPTNAME: scriptname, PROTOCOL: myprotocol, STYPE: 'notmodules'},
+                cache: false,
+                async: true,
+                error: function () {
+                    alert('系统连接失败，请稍后再试！')
+                },
+                success: function (obj) {
+                    if (obj.RET_INFO.errCode == 0) {
+                        var time = obj.EXETIME.toString();
+                        $('#scripttime').html(time);
+                    }
                 }
-            }
-        });
-    }});
+            });
+        }
+    });
 
     $('#testnode').datagrid({
         fitColumns: true,
-        rownumbers:true,
-        singleSelect:true,
-        columns:[[{field:'ip',title:'主机地址',width:100},
-            {field:'power',title:'负载比例(%)',width:100,editor:'numberbox'
+        rownumbers: true,
+        singleSelect: true,
+        columns: [[{field: 'ip', title: '主机地址', width: 100},
+            {
+                field: 'power', title: '负载比例(%)', width: 100, editor: 'numberbox'
             }]],
 
-        enableHeaderClickMenu : true,//此属性开启表头列名称右侧那个箭头形状的鼠标左键点击菜单
-        enableHeaderContextMenu : true,//此属性开启表头列名称右键点击菜单
-        onClickRow:function(){    //单击进行操作的方法
+        enableHeaderClickMenu: true,//此属性开启表头列名称右侧那个箭头形状的鼠标左键点击菜单
+        enableHeaderContextMenu: true,//此属性开启表头列名称右键点击菜单
+        onClickRow: function () {    //单击进行操作的方法
             var row = $('#testnode').datagrid('getSelected');//获取选中行的数据
             rowIndex = $('#testnode').datagrid('getRowIndex', row);
-            if (!row){
+            if (!row) {
                 return;//为防止意外情况可以选择加上此判断
             }
 
         },
 
     });
-    function cancel(){
+
+    function cancel() {
         $('#win2').window('close');
     }
+
     function addModules() {
         var selRows = $('#alltestnode').datagrid('getChecked');
-        for(var i=0;i<selRows.length;i++){
+        for (var i = 0; i < selRows.length; i++) {
             var address = selRows[i].ADDRESS;
             $('#testnode').datagrid("insertRow", {                    //这里还有一个index参数，可指定添加到某行。如果不写，默认为在最后一行添加
                 row: {
-                    ip:address,
-                    power:100/selRows.length
+                    ip: address,
+                    power: 100 / selRows.length
                 }
             });
         }
@@ -408,17 +443,20 @@ $('#testlist').combobox({
         $.ajax({
             type: 'GET',
             url: 'http://localhost:8080/MLG/moduleMana/listModules',
-            dataType:"json",
-            data:{S_INDEX:"0",MAX_NUM:"10"},
-            cache : false,
+            dataType: "json",
+            data: {S_INDEX: "0", MAX_NUM: "10"},
+            cache: false,
             async: true,
-            error:function(){alert('系统连接失败，请稍后再试！')},
-            success: function(obj){
-                if(obj.RET_INFO.errCode==0){
-                    $('#alltestnode').datagrid('loadData',{total:obj.MODULES.length,rows:obj.MODULES});
+            error: function () {
+                alert('系统连接失败，请稍后再试！')
+            },
+            success: function (obj) {
+                if (obj.RET_INFO.errCode == 0) {
+                    $('#alltestnode').datagrid('loadData', {total: obj.MODULES.length, rows: obj.MODULES});
                     $('#alltestnode').datagrid('reload');
                 }
-            }});
+            }
+        });
         $('#win2').window('open');
         $('#alltestnode').datagrid({
             fitColumns: true,
@@ -437,134 +475,136 @@ $('#testlist').combobox({
         });
     }
 
-        function selectMyscript() {
-            document.getElementById("testlist").length = 0;
-            $.ajax({
-                type: 'GET',
-                url: 'http://localhost:8080/MLG/scriptsMana/listScripts',
-                dataType: "json",
-                data: {S_INDEX: "0", MAX_NUM: "10"},
-                cache: false,
-                async: true,
-                error: function () {
-                    alert('系统连接失败，请稍后再试！')
-                },
-                success: function (obj) {
-                    if (obj.RET_INFO.errCode == 0) {
-                        var testlistobj = document.getElementById("testlist");
-                        var option;
-                        for (var i = 0; i < obj.SCRIPTS.length; i++) {
-                            //colData1[i] = {'field':obj.COLUMNS[i],'title':obj.COLUMNS[i],'colspan':2,'align':'center','width':100};
-                            txt = obj.SCRIPTS[i].SCRIPTNAME;
-                            val = txt;
-                            option = new Option(txt, val);
-                            if (testlistobj) {
-                                testlistobj.options.add(option);
-                            }
-                        }
-
-                    }
-                }
-            });
-        }
-
-        function selectMyParam() {
-            document.getElementById("paramlist").length = 0;
-            //$('#divDatagrid').html('<table id="totalTb"></table>');//动态创建表
-            $.ajax({
-                type: 'GET',
-                url: 'http://localhost:8080/MLG/paramfileMana/listParamFiles',
-                dataType: "json",
-                data: {S_INDEX: "0", MAX_NUM: "10"},
-                cache: false,
-                async: true,
-                error: function () {
-                    alert('系统连接失败，请稍后再试！')
-                },
-                success: function (obj) {
-                    if (obj.RET_INFO.errCode == 0) {
-                        var paramlistobj = document.getElementById("paramlist");
-                        var option;
-                        for (var i = 0; i < obj.PARAMFILES.length; i++) {
-                            //colData1[i] = {'field':obj.COLUMNS[i],'title':obj.COLUMNS[i],'colspan':2,'align':'center','width':100};
-                            txt = obj.PARAMFILES[i].FILENAME;
-                            val = txt;
-                            option = new Option(txt, val);
-                            if (paramlistobj) {
-                                paramlistobj.options.add(option);
-                            }
+    function selectMyscript() {
+        document.getElementById("testlist").length = 0;
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/MLG/scriptsMana/listScripts',
+            dataType: "json",
+            data: {S_INDEX: "0", MAX_NUM: "10"},
+            cache: false,
+            async: true,
+            error: function () {
+                alert('系统连接失败，请稍后再试！')
+            },
+            success: function (obj) {
+                if (obj.RET_INFO.errCode == 0) {
+                    var testlistobj = document.getElementById("testlist");
+                    var option;
+                    for (var i = 0; i < obj.SCRIPTS.length; i++) {
+                        //colData1[i] = {'field':obj.COLUMNS[i],'title':obj.COLUMNS[i],'colspan':2,'align':'center','width':100};
+                        txt = obj.SCRIPTS[i].SCRIPTNAME;
+                        val = txt;
+                        option = new Option(txt, val);
+                        if (testlistobj) {
+                            testlistobj.options.add(option);
                         }
                     }
-                }
-            });
 
-        }
-        var ipList = undefined;
-        function getNodeIp(){
-            ipList = new Array();
-            var rows = $('#testnode').datagrid("getRows");
-            var object = {};
-            for(var i=0;i<rows.length;i++){
-                object.ip = rows[i].ip;
-                object.power = rows[i].power;
-                //alert(object.ip+" "+object.power);
-                ipList.push(object);
+                }
             }
-            return ipList;
-        }
+        });
+    }
 
-        function addTestcase() {
-            //alert(t_testcasename+t_remark+t_testlist);
-            $('#testcase-form').form({
-                url: 'http://localhost:8080/MLG/testcaseMana/addTestcase',
-                dataType: "json",
-                cache: false,
-                async: true,
-                contentType: 'application/x-www-form-urlencoded',
-                onSubmit: function () {
-                    getNodeIp();
-                    //alert("success");
+    function selectMyParam() {
+        document.getElementById("paramlist").length = 0;
+        //$('#divDatagrid').html('<table id="totalTb"></table>');//动态创建表
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/MLG/paramfileMana/listParamFiles',
+            dataType: "json",
+            data: {S_INDEX: "0", MAX_NUM: "10"},
+            cache: false,
+            async: true,
+            error: function () {
+                alert('系统连接失败，请稍后再试！')
+            },
+            success: function (obj) {
+                if (obj.RET_INFO.errCode == 0) {
+                    var paramlistobj = document.getElementById("paramlist");
+                    var option;
+                    for (var i = 0; i < obj.PARAMFILES.length; i++) {
+                        //colData1[i] = {'field':obj.COLUMNS[i],'title':obj.COLUMNS[i],'colspan':2,'align':'center','width':100};
+                        txt = obj.PARAMFILES[i].FILENAME;
+                        val = txt;
+                        option = new Option(txt, val);
+                        if (paramlistobj) {
+                            paramlistobj.options.add(option);
+                        }
+                    }
                 }
-            });
-            $('#testcase-form').submit();
-        }
+            }
+        });
 
-        function getTestConf() {
-            return [t_testcasename,t_protocol, t_remark, t_testlist, t_paramlist, t_concurrentMode, t_timedelay, t_success, t_pressureMode, t_initPressure,t_virtualUser, t_timeInterval, t_step, t_testTime, t_targetPressure];
-        }
+    }
 
-        function getIpList() {
-            return ipList;
-        }
+    var ipList = undefined;
 
-        function saveCoookies() {
-            t_testcasename = $('#testcasename').val();
-            t_protocol = $('#protocol').combobox('getValue');
-            t_remark = $('#remark').val();
-            t_testlist = $('#testlist').combobox('getText');
-            t_paramlist = $('#paramlist').combobox('getText');
-            t_concurrentMode = $('#concurrentMode option:selected').text();
-            t_timedelay = $('#timedelay').val();
-            t_success = $('#success').val();
-            t_pressureMode = $('#pressureMode option:selected').text();
-            t_initPressure = $('#initPressure').val();
-            t_virtualUser = $('#virtualUsers').val();
-            t_timeInterval = $('#timeInterval').val();
-            t_step = $('#step').val();
-            t_testTime = $('#testTime').val();
-            t_targetPressure = $('#targetPressure').val();
+    function getNodeIp() {
+        ipList = new Array();
+        var rows = $('#testnode').datagrid("getRows");
+        var object = {};
+        for (var i = 0; i < rows.length; i++) {
+            object.ip = rows[i].ip;
+            object.power = rows[i].power;
+            //alert(object.ip+" "+object.power);
+            ipList.push(object);
         }
+        return ipList;
+    }
 
-        function test() {
-            saveCoookies();
-            getNodeIp();
-            var href = "html/test.html" +
-                    "?testcasename="+$('#testcasename').val()+
-                    "?protocol="+$('#protocol').combobox('getValue')+
-                    "?remark="+$('#remark').val()+
-                    "?testlist="+$('#testlist').combobox('getText')+
-                    "?paramlist="+$('#paramlist').combobox('getText');
-            addTab($('#testcasename').val(), href, "icon-server-start", 0);
-            //updateTab($('#testcasename').val(),"")
-        }
+    function addTestcase() {
+        //alert(t_testcasename+t_remark+t_testlist);
+        $('#testcase-form').form({
+            url: 'http://localhost:8080/MLG/testcaseMana/addTestcase',
+            dataType: "json",
+            cache: false,
+            async: true,
+            contentType: 'application/x-www-form-urlencoded',
+            onSubmit: function () {
+                getNodeIp();
+                //alert("success");
+            }
+        });
+        $('#testcase-form').submit();
+    }
+
+    function getTestConf() {
+        return [t_testcasename, t_protocol, t_remark, t_testlist, t_paramlist, t_concurrentMode, t_timedelay, t_success, t_pressureMode, t_initPressure, t_virtualUser, t_timeInterval, t_step, t_testTime, t_targetPressure];
+    }
+
+    function getIpList() {
+        return ipList;
+    }
+
+    function saveCoookies() {
+        t_testcasename = $('#testcasename').val();
+        t_protocol = $('#protocol').combobox('getValue');
+        t_remark = $('#remark').val();
+        t_testlist = $('#testlist').combobox('getText');
+        t_paramlist = $('#paramlist').combobox('getText');
+        t_concurrentMode = $('#concurrentMode option:selected').text();
+        t_timedelay = $('#timedelay').val();
+        t_success = $('#success').val();
+        t_pressureMode = $('#pressureMode option:selected').text();
+        t_initPressure = $('#initPressure').val();
+        t_virtualUser = $('#virtualUsers').val();
+        t_timeInterval = $('#timeInterval').val();
+        t_step = $('#step').val();
+        t_testTime = $('#testTime').val();
+        t_targetPressure = $('#targetPressure').val();
+    }
+
+    function test() {
+        saveCoookies();
+        getNodeIp();
+        var href = "html/test.html" +
+            "?testcasename=" + $('#testcasename').val() +
+            "?protocol=" + $('#protocol').combobox('getValue') +
+            "?remark=" + $('#remark').val() +
+            "?testlist=" + $('#testlist').combobox('getText') +
+            "?paramlist=" + $('#paramlist').combobox('getText');
+        addTab($('#testcasename').val(), href, "icon-server-start", 0);
+        //updateTab($('#testcasename').val(),"")
+    }
 </script>
